@@ -701,7 +701,7 @@
       <li><button onclick="showPage('ceilings')"    id="btn-ceilings">Learning Ceilings</button></li>
       <li><button onclick="showPage('learn')"       id="btn-learn">Ways to Learn</button></li>
       <li><button onclick="showPage('study')"       id="btn-study">Ways to Study</button></li>
-      <li><button onclick="showPage('practical')"   id="btn-practical">Let's Begin</button></li>
+      <li><button onclick="showPage('practical')"   id="btn-practical">Study Space</button></li>
       <li><button onclick="showPage('reflection')"  id="btn-reflection">My Reflection</button></li>
       <li><button onclick="showPage('try')"         id="btn-try">Try It Now</button></li>
       <li><button onclick="showPage('learnership')" id="btn-learnership">Learnership</button></li>
@@ -720,7 +720,7 @@
       <div class="hero-card" onclick="showPage('ceilings')"><span class="icon">🧱</span><span>Learning Ceilings</span></div>
       <div class="hero-card" onclick="showPage('learn')"><span class="icon">🧠</span><span>Ways to Learn</span></div>
       <div class="hero-card" onclick="showPage('study')"><span class="icon">📚</span><span>Ways to Study</span></div>
-      <div class="hero-card" onclick="showPage('practical')"><span class="icon">⚡</span><span>Let's Begin</span></div>
+      <div class="hero-card" onclick="showPage('practical')"><span class="icon">🏠</span><span>Study Space</span></div>
     </div>
   </div>
   <div class="content">
@@ -1011,7 +1011,6 @@
     <!-- Category nav -->
     <div class="cat-nav-3">
       <button onclick="document.getElementById('study-strategies').scrollIntoView({behavior:'smooth'})" class="cat-btn" style="background:var(--dark);color:var(--white);" onmouseover="this.style.filter='brightness(1.2)'" onmouseout="this.style.filter='brightness(1)'">🔑 Secret Weapons</button>
-      <button onclick="document.getElementById('study-space').scrollIntoView({behavior:'smooth'})" class="cat-btn" style="background:var(--steel-blue);color:var(--white);" onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='brightness(1)'">🏠 Your Study Space</button>
       <button onclick="document.getElementById('study-physical').scrollIntoView({behavior:'smooth'})" class="cat-btn" style="background:var(--teal);color:var(--white);" onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='brightness(1)'">🤸 Physical & Movement</button>
       <button onclick="document.getElementById('study-creative').scrollIntoView({behavior:'smooth'})" class="cat-btn" style="background:var(--yellow);color:var(--dark);" onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='brightness(1)'">🎨 Creative & Visual</button>
       <button onclick="document.getElementById('study-social').scrollIntoView({behavior:'smooth'})" class="cat-btn" style="background:var(--light-teal);color:var(--dark);" onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='brightness(1)'">👥 Social & Interactive</button>
@@ -1029,27 +1028,6 @@
       </div>
       <p class="section-desc">Six evidence-based strategies that improve long-term learning by making your brain actively retrieve, organise, and strengthen knowledge over time.</p>
       <div class="card-grid" id="cards-study-strategies"></div>
-    </div>
-
-    <hr class="divider" />
-
-    <!-- YOUR STUDY SPACE -->
-    <div id="study-space" class="section-anchor">
-      <div class="section-hdr">
-        <div class="section-icon" style="background:var(--steel-blue);">🏠</div>
-        <div>
-          <p class="section-tag" style="color:var(--steel-blue);">Category</p>
-          <h2 class="section-name">Your Study Space</h2>
-        </div>
-      </div>
-      <p class="section-desc">Where and how you set up your environment has a measurable effect on focus, memory, and how long you can study effectively.</p>
-      <div class="card-grid" id="cards-study-space"></div>
-      <div class="yellow-box"><h3>The Before-You-Start Ritual</h3><p>Take 2 minutes before every study session to: write down exactly what you want to achieve, close all apps except what you need, and take three slow breaths. This primes your brain to focus and tells it "learning mode: ON."</p></div>
-      <div class="steps">
-        <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Dump your brain first</h4><p>Write down everything on your mind (worries, to-dos, random thoughts) onto paper before studying. This clears your working memory so it's free to learn.</p></div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Start with the hardest thing</h4><p>Your willpower and focus are highest at the start of a session. Tackle the hardest content first, and leave easier review tasks for when energy dips.</p></div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-body"><h4>End with a recap</h4><p>Spend the last 5 minutes writing (from memory) what you just learned. No notes. This one habit can double how much you remember the next day.</p></div></div>
-      </div>
     </div>
 
     <hr class="divider" />
@@ -1133,13 +1111,32 @@
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <section id="page-practical" class="page">
   <div class="content">
-    <p class="section-label">Start Today</p>
-    <h1 class="page-title">Let's Begin</h1>
+    <p class="section-label">Your Learning Environment</p>
+    <h1 class="page-title">Study Space</h1>
+    <hr class="divider" />
+    <div class="yellow-box"><h3>The Before-You-Start Ritual</h3><p>Take 2 minutes before every study session to: write down exactly what you want to achieve, close all apps except what you need, and take three slow breaths. This primes your brain to focus and tells it "learning mode: ON."</p></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Dump your brain first</h4><p>Write down everything on your mind (worries, to-dos, random thoughts) onto paper before studying. This clears your working memory so it's free to learn.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Start with the hardest thing</h4><p>Your willpower and focus are highest at the start of a session. Tackle the hardest content first, and leave easier review tasks for when energy dips.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>End with a recap</h4><p>Spend the last 5 minutes writing (from memory) what you just learned. No notes. This one habit can double how much you remember the next day.</p></div></div>
+    </div>
     <hr class="divider" />
     <p class="section-label">Your Environment Matters</p>
     <h2 class="h2-section">Setting up your study space</h2>
     <p class="lship-intro">Where you study has a measurable effect on how well you focus, how long you last, and how much you remember. These are the things worth getting right before you start.</p>
     <div class="card-grid" id="cards-start-space"></div>
+    <hr class="divider" />
+    <div id="study-space" class="section-anchor">
+      <div class="section-hdr">
+        <div class="section-icon" style="background:var(--steel-blue);">🏠</div>
+        <div>
+          <p class="section-tag" style="color:var(--steel-blue);">Category</p>
+          <h2 class="section-name">Your Study Space</h2>
+        </div>
+      </div>
+      <p class="section-desc">Where and how you set up your environment has a measurable effect on focus, memory, and how long you can study effectively.</p>
+      <div class="card-grid" id="cards-study-space"></div>
+    </div>
     <div class="quote"><p>"The more that you read, the more things you will know. The more that you learn, the more places you'll go."</p><cite>— Dr. Seuss</cite></div>
   </div>
 </section>
@@ -1338,6 +1335,7 @@
       {v:'',           icon:'🏆', h:'Rank and Justify',             b:'Order concepts by importance, effectiveness, impact, or significance, then defend your ranking. There are no perfectly right answers; the thinking that goes into justifying your order is the learning.'},
       {v:'light-teal', icon:'🎭', h:'Teach Someone Else',           b:'Explaining to a friend forces you to organise your thinking, notice what you don\'t know, and use different words. Students who teach others retain up to 90% of the material.'},
       {v:'steel',      icon:'🗣️', h:'The Feynman Technique',        b:'Pretend you have to explain the topic to a 10-year-old. If you can\'t explain it simply, you don\'t understand it yet. This forces your brain to find the gaps in your knowledge.'},
+      {v:'yellow',     icon:'🧩', h:'Object Association Learning',   b:'Assign physical objects to ideas (a pen = enzyme, a book = substrate) and physically move them to show relationships. Using your hands and real objects gives your brain a physical memory of the concept, not just a verbal one.'},
     ],
     'learn-brain': [
       {v:'light-teal', icon:'🃏', h:'Flashcard Recall',             b:'Write a question on one side, the answer on the other. Test yourself; don\'t just read. The act of trying to retrieve an answer (even if you get it wrong) builds memory far stronger than re-reading.'},
@@ -1352,12 +1350,16 @@
       {v:'',           icon:'🗺️', h:'Mind Mapping',                 b:'Draw your topic in the centre, then branch out with related ideas. Your brain remembers visuals and connections far better than bullet-point lists. Use colour and images.'},
       {v:'yellow',     icon:'⚖️', h:'Compare and Contrast Tables',  b:'Draw a table to identify similarities and differences between ideas, concepts, or events. Forcing your brain to compare things side by side builds deeper understanding than studying each one in isolation.'},
       {v:'steel',      icon:'🔤', h:'Create Acronyms and Mnemonics',b:'Develop memorable shortcuts for key information. Turn the first letters of a list into a word, invent a silly sentence, or create a rhyme. The stranger and more personal the mnemonic, the better it sticks.'},
+      {v:'light-teal', icon:'🔁', h:'Retrieval Practice (Active Recall)', b:'Instead of rereading notes, you repeatedly test yourself from memory. Closing your book and writing down everything you can recall is more effective than reading the same page five times.'},
+      {v:'yellow',     icon:'🔀', h:'Interleaving Practice',             b:'Instead of studying one topic for a long block, you mix different but related topics during a study session. Jumping between topics feels harder but builds stronger, more flexible understanding.'},
     ],
     'learn-creativity': [
       {v:'',           icon:'🎵', h:'Set It to Music',              b:'Turn facts, formulas, or sequences into a song or rap. Music activates emotional memory in your brain, making information far stickier. (If it embarrasses you, it will stick even better.)'},
       {v:'yellow',     icon:'🤸', h:'Use Gestures and Movement',    b:'Associate concepts with physical actions or movements. Acting out a process, walking while reciting, or using hand gestures to represent ideas engages your body in the learning, and your body remembers too.'},
       {v:'light-teal', icon:'🎨', h:'Remix the Learning',           b:'Transform the information into a completely different format:<br><br>• Turn notes into a comic strip<br>• Write a rap or song<br>• Create a storyboard<br>• Build a Lego model<br>• Design an infographic<br><br><strong>Why it works:</strong> Changing formats strengthens understanding and creativity.'},
       {v:'steel',      icon:'🎭', h:'Become the Concept',           b:'Role-play a process or idea. Pretend to be a volcano erupting, an electron moving through a circuit, or a journalist interviewing a historical figure. Stepping into the concept forces you to understand it from the inside out.'},
+      {v:'yellow',     icon:'🪜', h:'Question Laddering',            b:'Instead of reviewing notes, keep asking progressively deeper questions:<br><br>• <em>What is this?</em><br>• <em>Why does it work?</em><br>• <em>How does it connect to X?</em><br>• <em>What would happen if it changed?</em><br><br>Each question builds on the last, creating a chain of reasoning that locks the concept into memory far more securely than re-reading.'},
+      {v:'light-teal', icon:'🔣', h:'Abstract Visual Encoding',     b:'Convert ideas into simple visual symbols or sketches that represent meaning — not organised diagrams like mind maps, but personal shorthand. A curved arrow might mean "causes", a lightning bolt might mean "sudden change". The more personal the symbol, the stronger the memory.'},
     ],
     'study-strategies': [
       {v:'yellow',     icon:'🍅', h:'The Pomodoro Technique',       b:'Study for 25 minutes with full focus, then take a 5-minute break. After 4 rounds, take a 20-minute break. Short bursts beat marathon sessions; your brain needs rest to consolidate what it just learned.'},
