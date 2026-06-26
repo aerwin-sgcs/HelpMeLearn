@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breaking Through the Ceiling</title>
+  <style>
+    :root {
+      --light-teal:  #A8DADC;
+      --steel-blue:  #457B9D;
+      --cream:       #F1FAEE;
+      --yellow:      #F1C40F;
+      --teal:        #2A9D8F;
+      --dark:        #1D3557;
+      --white:       #FFFFFF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────── */
+    nav {
+      background: var(--steel-blue);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 20px;
+      gap: 8px;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--yellow);
+      letter-spacing: -0.5px;
+    }
+
+    .logo span { color: var(--light-teal); }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-links button {
+      background: transparent;
+      border: 2px solid transparent;
+      color: var(--white);
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+
+    .nav-links button:hover,
+    .nav-links button.active {
+      background: var(--teal);
+      border-color: var(--light-teal);
+      color: var(--white);
+    }
+
+    /* ── PAGE SECTIONS ───────────────────────────────────────────── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── HERO ────────────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--steel-blue) 0%, var(--teal) 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 80px 24px 60px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 em { color: var(--yellow); font-style: normal; }
+
+    .hero p {
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      max-width: 680px;
+      margin: 0 auto 32px;
+      opacity: 0.92;
+      line-height: 1.6;
+    }
+
+    .hero-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 16px;
+      padding: 24px 16px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.25); }
+    .hero-card .icon { font-size: 2rem; }
+    .hero-card span { font-size: 1rem; font-weight: 700; }
+
+    /* ── CONTENT WRAPPER ─────────────────────────────────────────── */
+    .content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .page-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      font-size: 1.1rem;
+      color: var(--steel-blue);
+      margin-bottom: 40px;
+      font-weight: 500;
+    }
+
+    /* ── CARDS ───────────────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border-top: 6px solid var(--teal);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.13); }
+    .card.yellow { border-top-color: var(--yellow); }
+    .card.light-teal { border-top-color: var(--light-teal); }
+    .card.steel { border-top-color: var(--steel-blue); }
+
+    .card-icon { font-size: 2.2rem; margin-bottom: 12px; }
+
+    .card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 10px; color: var(--dark); }
+    .card p  { font-size: 1rem; line-height: 1.65; color: #444; }
+
+    /* ── HIGHLIGHT BOX ───────────────────────────────────────────── */
+    .highlight {
+      background: linear-gradient(135deg, var(--light-teal) 0%, var(--teal) 100%);
+      color: var(--white);
+      border-radius: 20px;
+      padding: 32px;
+      margin: 32px 0;
+    }
+
+    .highlight h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; }
+    .highlight p  { font-size: 1.05rem; line-height: 1.65; }
+
+    .yellow-box {
+      background: var(--yellow);
+      color: var(--dark);
+      border-radius: 20px;
+      padding: 28px 32px;
+      margin: 32px 0;
+    }
+
+    .yellow-box h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+    .yellow-box p  { font-size: 1rem; line-height: 1.6; }
+
+    /* ── STEPS ───────────────────────────────────────────────────── */
+    .steps { display: flex; flex-direction: column; gap: 20px; margin: 32px 0; }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+    }
+
+    .step-num {
+      background: var(--steel-blue);
+      color: var(--white);
+      font-size: 1.2rem;
+      font-weight: 900;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-body h4 { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+    .step-body p  { font-size: 0.98rem; line-height: 1.6; color: #444; }
+
+    /* ── CHECKLIST ───────────────────────────────────────────────── */
+    .checklist {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin: 24px 0;
+    }
+
+    .checklist h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 16px; color: var(--steel-blue); }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+
+    .check-item:last-child { border-bottom: none; }
+
+    .check-item input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      accent-color: var(--teal);
+      cursor: pointer;
+      margin-top: 2px;
+    }
+
+    .check-item label { font-size: 1rem; line-height: 1.55; cursor: pointer; color: #333; }
+    .check-item.done label { text-decoration: line-through; color: #999; }
+
+    /* ── QUOTE BLOCK ─────────────────────────────────────────────── */
+    .quote {
+      border-left: 6px solid var(--yellow);
+      padding: 16px 24px;
+      margin: 28px 0;
+      background: rgba(241,196,15,0.1);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .quote p    { font-size: 1.1rem; font-style: italic; line-height: 1.6; color: var(--dark); }
+    .quote cite { display: block; margin-top: 8px; font-size: 0.9rem; color: #666; font-style: normal; font-weight: 600; }
+
+    /* ── CEILING VISUAL ──────────────────────────────────────────── */
+    .ceiling-visual {
+      background: linear-gradient(180deg, var(--steel-blue) 0%, var(--light-teal) 60%, var(--cream) 100%);
+      border-radius: 20px;
+      padding: 40px 28px;
+      text-align: center;
+      color: var(--white);
+      margin: 32px 0;
+    }
+
+    .ceiling-visual .ceiling-label {
+      background: var(--yellow);
+      color: var(--dark);
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 8px 20px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .ceiling-visual p { font-size: 1.05rem; max-width: 500px; margin: 0 auto; line-height: 1.6; }
+
+    /* ── TAG PILLS ───────────────────────────────────────────────── */
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+
+    .tag { background: var(--light-teal); color: var(--dark); font-size: 0.9rem; font-weight: 700; padding: 8px 18px; border-radius: 20px; }
+    .tag.gold { background: var(--yellow); }
+    .tag.blue { background: var(--steel-blue); color: var(--white); }
+    .tag.teal { background: var(--teal); color: var(--white); }
+
+    /* ── SECTION DIVIDER ─────────────────────────────────────────── */
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+
+    hr.divider { border: none; border-top: 3px dashed var(--light-teal); margin: 40px 0; }
+
+    /* ── UNUSUAL METHODS GRID ────────────────────────────────────── */
+    .unusual-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .unusual-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 16px 20px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--dark);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+      border-left: 5px solid var(--teal);
+      line-height: 1.5;
+    }
+
+    /* ── LEARNERSHIP TABLE ───────────────────────────────────────── */
+    .learnership-hero {
+      background: linear-gradient(135deg, #2d5a1b 0%, #4a8a28 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 56px 24px 44px;
+    }
+
+    .learnership-hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.5px; margin-bottom: 6px; }
+    .learnership-hero h1 span { color: var(--yellow); }
+    .learnership-hero .sub { font-size: 1.1rem; opacity: 0.9; margin-top: 4px; }
+
+    .learnership-wrap { max-width: 1050px; margin: 0 auto; padding: 44px 20px 70px; }
+
+    .lship-header {
+      display: grid;
+      grid-template-columns: 220px repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+      align-items: end;
+    }
+
+    .lship-col-label { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+
+    .lship-col-label .col-icon-wrap {
+      width: 64px; height: 64px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+    }
+
+    .lship-col-label .col-name { font-size: 0.78rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+
+    .col-challenge .col-icon-wrap { background: #e8f5d0; }
+    .col-challenge .col-name      { color: #4a8a28; }
+    .col-habits   .col-icon-wrap  { background: #d6eaf8; }
+    .col-habits   .col-name       { color: #2471a3; }
+    .col-mistakes .col-icon-wrap  { background: #fde9c9; }
+    .col-mistakes .col-name       { color: #d4730a; }
+    .col-feedback .col-icon-wrap  { background: #fce4f0; }
+    .col-feedback .col-name       { color: #b5206e; }
+    .col-time     .col-icon-wrap  { background: #ece0f5; }
+    .col-time     .col-name       { color: #7b3fa0; }
+
+    .lship-row {
+      display: grid;
+      grid-template-columns: 220px repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .lship-row-label, .lship-cell {
+      border-radius: 40px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      min-height: 56px;
+    }
+
+    .lship-row-label { justify-content: flex-start; padding-left: 24px; font-size: 0.85rem; letter-spacing: 1px; color: var(--white); }
+
+    .row-agile       .lship-row-label { background: #3a7a1e; }
+    .row-agile       .lship-cell      { background: #e8f5d5; color: #2a5a12; }
+    .row-independent .lship-row-label { background: #4d9428; }
+    .row-independent .lship-cell      { background: #eef7e0; color: #336618; }
+    .row-directed    .lship-row-label { background: #6ab535; }
+    .row-directed    .lship-cell      { background: #f3faeb; color: #3d7a1a; }
+    .row-performance .lship-row-label { background: #2e6fa8; }
+    .row-performance .lship-cell      { background: #ddeef8; color: #1a4e7a; }
+    .row-beginner    .lship-row-label { background: #1f5490; }
+    .row-beginner    .lship-cell      { background: #d5e6f5; color: #153d6e; }
+    .row-non         .lship-row-label { background: #163a6b; }
+    .row-non         .lship-cell      { background: #c8daf0; color: #0e2a52; }
+
+    .lship-credit { text-align: center; margin-top: 28px; font-size: 0.9rem; color: #666; }
+    .lship-credit a { color: var(--steel-blue); font-weight: 700; }
+
+    .lship-divider {
+      height: 4px;
+      background: linear-gradient(90deg, #6ab535, #3a7a1e, #2e6fa8, #163a6b);
+      border-radius: 2px;
+      margin: 14px 0 10px;
+    }
+
+    .tier-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; display: inline-block; margin-bottom: 8px; }
+    .tier-green { background: #d5edbb; color: #2d6b10; }
+    .tier-blue  { background: #cfe0f5; color: #1a4470; }
+
+    .lship-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .lship-inner  { min-width: 680px; }
+
+    /* ── CLICKABLE CELLS ─────────────────────────────────────────── */
+    .lship-btn {
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      letter-spacing: inherit;
+      text-transform: inherit;
+      transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+    }
+
+    .lship-btn:hover { filter: brightness(1.12); transform: scale(1.04); box-shadow: 0 4px 14px rgba(0,0,0,0.18); z-index: 1; position: relative; }
+    .lship-btn:active { transform: scale(0.97); }
+
+    /* ── MODAL ───────────────────────────────────────────────────── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(29,53,87,0.65);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal-box {
+      background: var(--white);
+      border-radius: 24px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      animation: modalIn 0.22s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-header { padding: 28px 28px 20px; border-bottom: 3px solid var(--cream); position: relative; }
+    .modal-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+
+    .modal-badge { font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; }
+    .modal-badge.learner { background: var(--light-teal); color: var(--dark); }
+    .modal-badge.dim     { background: var(--yellow); color: var(--dark); }
+
+    .modal-word { font-size: 2rem; font-weight: 900; color: var(--dark); letter-spacing: -0.5px; }
+
+    .modal-close { position: absolute; top: 20px; right: 20px; background: var(--cream); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--dark); transition: background 0.15s; }
+    .modal-close:hover { background: var(--light-teal); }
+
+    .modal-body { padding: 24px 28px 32px; }
+
+    .modal-section-title { font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin: 20px 0 8px; }
+
+    .modal-explanation { font-size: 1.05rem; line-height: 1.7; color: #333; }
+
+    .modal-chars { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+    .modal-chars li { display: flex; align-items: flex-start; gap: 10px; font-size: 1rem; line-height: 1.55; color: #444; }
+    .modal-chars li::before { content: '→'; color: var(--teal); font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+
+    .modal-improve { background: linear-gradient(135deg, var(--teal), var(--steel-blue)); border-radius: 16px; padding: 20px 22px; color: var(--white); font-size: 1rem; line-height: 1.65; margin-top: 8px; }
+    .modal-improve strong { display: block; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.8; margin-bottom: 6px; }
+
+    .modal-mastery { background: linear-gradient(135deg, #3a7a1e, #6ab535); border-radius: 16px; padding: 20px 22px; color: var(--white); font-size: 1rem; line-height: 1.65; margin-top: 8px; }
+    .modal-mastery strong { display: block; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.8; margin-bottom: 6px; }
+
+    /* ── REFLECTION PAGE ─────────────────────────────────────────── */
+    .reflect-summary { display: flex; gap: 16px; margin-bottom: 36px; flex-wrap: wrap; }
+
+    .reflect-stat { flex: 1; min-width: 120px; background: var(--white); border-radius: 18px; padding: 20px; text-align: center; box-shadow: 0 3px 14px rgba(0,0,0,0.08); }
+    .reflect-stat span  { display: block; font-size: 2.4rem; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+    .reflect-stat label { font-size: 0.85rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+    .reflect-stat.s-tick  span { color: #2d7a2d; }
+    .reflect-stat.s-cross span { color: #c0392b; }
+    .reflect-stat.s-yet   span { color: var(--steel-blue); }
+
+    .reflect-sliders { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+
+    .slider-wrap { background: var(--white); border-radius: 20px; padding: 24px; box-shadow: 0 3px 14px rgba(0,0,0,0.08); }
+
+    .slider-label { font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--steel-blue); margin-bottom: 8px; }
+
+    .slider-level-name { font-size: 1.3rem; font-weight: 900; color: var(--dark); margin-bottom: 16px; min-height: 1.6em; }
+    .slider-level-name.target { color: #3a7a1e; }
+
+    input[type="range"].lship-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 10px;
+      border-radius: 5px;
+      background: linear-gradient(90deg, #163a6b, #2e6fa8, #6ab535, #3a7a1e);
+      outline: none;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    input[type="range"].lship-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 4px solid var(--steel-blue);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    input[type="range"].lship-slider.target::-webkit-slider-thumb { border-color: #3a7a1e; }
+
+    .slider-ends { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; color: #888; }
+
+    .reflect-gap { border-radius: 18px; padding: 22px 26px; margin-bottom: 36px; font-size: 1.05rem; line-height: 1.65; font-weight: 500; }
+    .reflect-gap.has-gap  { background: linear-gradient(135deg, var(--steel-blue), var(--teal)); color: var(--white); }
+    .reflect-gap.no-gap-top { background: linear-gradient(135deg, #3a7a1e, #6ab535); color: var(--white); }
+    .reflect-gap.no-gap   { background: var(--light-teal); color: var(--dark); }
+    .reflect-gap a { color: var(--yellow); font-weight: 800; text-decoration: underline; cursor: pointer; }
+
+    .method-category { margin-bottom: 36px; }
+    .method-category-title { font-size: 1.1rem; font-weight: 900; color: var(--steel-blue); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 3px solid var(--light-teal); }
+
+    .method-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+
+    .method-card { background: var(--white); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); border-left: 5px solid var(--light-teal); transition: all 0.2s; }
+    .method-card.ticked  { border-left-color: #2d7a2d; background: #f0faf0; }
+    .method-card.crossed { border-left-color: #c0392b; background: #fdf0f0; opacity: 0.65; }
+
+    .method-name { font-size: 0.92rem; font-weight: 700; color: var(--dark); line-height: 1.35; flex: 1; }
+    .method-card.crossed .method-name { text-decoration: line-through; color: #999; }
+
+    .method-btns { display: flex; gap: 6px; flex-shrink: 0; }
+
+    .btn-tick, .btn-cross { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #ddd; background: var(--white); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; flex-shrink: 0; }
+    .btn-tick:hover  { border-color: #2d7a2d; background: #e8f5e8; }
+    .btn-cross:hover { border-color: #c0392b; background: #fde8e8; }
+    .method-card.ticked  .btn-tick  { background: #2d7a2d; border-color: #2d7a2d; color: white; }
+    .method-card.crossed .btn-cross { background: #c0392b; border-color: #c0392b; color: white; }
+
+    .reflect-reset { background: none; border: 2px solid #ccc; color: #888; font-size: 0.85rem; font-weight: 700; padding: 10px 20px; border-radius: 10px; cursor: pointer; margin-top: 8px; transition: all 0.15s; }
+    .reflect-reset:hover { border-color: #c0392b; color: #c0392b; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero { padding: 50px 20px 40px; }
+      .content { padding: 32px 16px 60px; }
+      .step { flex-direction: column; gap: 12px; }
+      .reflect-sliders { grid-template-columns: 1fr; }
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .card { padding: 32px; }
+      body { font-size: 1.05rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ──────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Breaking Through <span>the Ceiling</span></div>
+    <ul class="nav-links">
+      <li><button onclick="showPage('home')"        id="btn-home"        class="active">Home</button></li>
+      <li><button onclick="showPage('ceilings')"    id="btn-ceilings">Learning Ceilings</button></li>
+      <li><button onclick="showPage('learn')"       id="btn-learn">Ways to Learn</button></li>
+      <li><button onclick="showPage('study')"       id="btn-study">Ways to Study</button></li>
+      <li><button onclick="showPage('practical')"   id="btn-practical">Practical Ideas</button></li>
+      <li><button onclick="showPage('reflection')"  id="btn-reflection">My Reflection</button></li>
+      <li><button onclick="showPage('learnership')" id="btn-learnership">Learnership</button></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- HOME                                                            -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section id="page-home" class="page active">
+  <div class="hero">
+    <h1>Your brain is a<br><em>superpower.</em><br>Time to use it.</h1>
+    <p>This isn't about studying harder — it's about studying <strong>smarter</strong>. Discover how your brain actually learns and unlock skills that will help you for life.</p>
+    <div class="hero-cards">
+      <div class="hero-card" onclick="showPage('ceilings')"><span class="icon">🧱</span><span>Learning Ceilings</span></div>
+      <div class="hero-card" onclick="showPage('learn')"><span class="icon">🧠</span><span>Ways to Learn</span></div>
+      <div class="hero-card" onclick="showPage('study')"><span class="icon">📚</span><span>Ways to Study</span></div>
+      <div class="hero-card" onclick="showPage('practical')"><span class="icon">⚡</span><span>Practical Ideas</span></div>
+    </div>
+  </div>
+  <div class="content">
+    <p class="section-label">Why This Matters</p>
+    <h2 class="page-title">School teaches you <em>what</em> to learn.<br>We teach you <em>how.</em></h2>
+    <p class="page-subtitle">Most students were never shown these skills — but once you know them, everything gets easier.</p>
+    <div class="card-grid">
+      <div class="card yellow"><div class="card-icon">🔥</div><h3>It's a skill, not a gift</h3><p>Being a "good learner" is not something you're born with. It's a set of techniques anyone can practise and improve — just like sport or music.</p></div>
+      <div class="card"><div class="card-icon">⏱️</div><h3>Work smarter, not longer</h3><p>Students who understand <em>how</em> memory works can learn the same content in half the time. The secret is using the right strategy at the right moment.</p></div>
+      <div class="card light-teal"><div class="card-icon">🌱</div><h3>Growth is always possible</h3><p>Every time you struggle with something difficult, your brain is literally building new connections. Difficulty isn't a sign you can't do it — it's a sign you're growing.</p></div>
+    </div>
+    <div class="highlight"><h3>Did You Know?</h3><p>Research shows that <strong>how</strong> you study matters far more than <strong>how long</strong> you study. Re-reading your notes is one of the <em>least effective</em> strategies — yet it's what most students do. Explore this site to find out what actually works.</p></div>
+    <div class="quote"><p>"Anyone who stops learning is old, whether at twenty or eighty. Anyone who keeps learning stays young."</p><cite>— Henry Ford</cite></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- LEARNING CEILINGS                                               -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section id="page-ceilings" class="page">
+  <div class="content">
+    <p class="section-label">Understanding the Block</p>
+    <h1 class="page-title">Learning Ceilings</h1>
+    <p class="page-subtitle">Ever felt like you've hit a wall? There's a reason — and a way through.</p>
+    <div class="ceiling-visual">
+      <div class="ceiling-label">THE CEILING</div>
+      <p>A learning ceiling is the invisible barrier where progress seems to stop. You study, you practise, but nothing improves. Sound familiar? You're not alone — and it's not your fault.</p>
+    </div>
+    <p class="section-label">What's Actually Happening</p>
+    <h2 style="font-size:1.6rem;font-weight:800;margin-bottom:12px;">Why we hit ceilings</h2>
+    <div class="card-grid">
+      <div class="card steel"><div class="card-icon">🔄</div><h3>The Comfort Zone Trap</h3><p>Your brain is efficient — it stops working hard once something feels familiar. Re-reading notes feels productive, but your brain is barely engaged. You need to make it <em>work</em>.</p></div>
+      <div class="card yellow"><div class="card-icon">😴</div><h3>Passive Learning</h3><p>Watching videos, highlighting text, or reading chapters repeatedly are passive. Your brain is a spectator, not a participant. Passive learning barely sticks.</p></div>
+      <div class="card"><div class="card-icon">🧩</div><h3>Missing Foundations</h3><p>Sometimes we hit a ceiling because there's a gap in our foundations. Like trying to build a roof without walls — the earlier concept wasn't locked in properly.</p></div>
+      <div class="card light-teal"><div class="card-icon">😰</div><h3>Fear of Being Wrong</h3><p>When students avoid practising retrieval (testing themselves) because it feels uncomfortable, they miss the single most powerful learning tool available.</p></div>
+    </div>
+    <hr class="divider" />
+    <p class="section-label">Breaking Through</p>
+    <h2 style="font-size:1.6rem;font-weight:800;margin-bottom:20px;">How to smash through a ceiling</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Identify the exact sticking point</h4><p>Don't say "I don't get maths." Be specific: "I get confused when the equation has fractions on both sides." Precise problems have precise solutions.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Switch your strategy</h4><p>If what you've been doing isn't working, do something different. Re-reading didn't help? Try explaining the concept out loud, drawing a diagram, or writing it from memory.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Embrace the struggle</h4><p>The feeling of "this is hard and I'm not sure" is your brain forming new connections. Scientists call it <em>desirable difficulty</em> — it actually speeds up long-term memory.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Rest and recover</h4><p>Your brain consolidates learning during sleep. Pulling an all-nighter before a test works against you. Short, regular study sessions beat long, rare ones every time.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Get a different perspective</h4><p>Ask a teacher, a classmate, or look for a different explanation online. Sometimes the ceiling is just your current explanation not clicking — another angle breaks it open.</p></div></div>
+    </div>
+    <div class="yellow-box"><h3>Key Mindset Shift</h3><p>A ceiling isn't a sign that you've reached your limit. It's a sign that your current strategy needs upgrading. Every expert in history has hit ceilings — the difference is they kept experimenting until they found a way through.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- WAYS TO LEARN                                                   -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section id="page-learn" class="page">
+  <div class="content">
+    <p class="section-label">Beyond the Textbook</p>
+    <h1 class="page-title">Creative Ways to Learn</h1>
+    <p class="page-subtitle">Forget re-reading. These strategies are backed by brain science and actually fun.</p>
+    <div class="tags">
+      <span class="tag gold">Active Learning</span>
+      <span class="tag teal">Brain Science</span>
+      <span class="tag blue">Memory</span>
+      <span class="tag">Creativity</span>
+    </div>
+    <div class="card-grid">
+      <div class="card yellow"><div class="card-icon">🗣️</div><h3>The Feynman Technique</h3><p>Pretend you have to explain the topic to a 10-year-old. If you can't explain it simply, you don't understand it yet. This forces your brain to find the gaps in your knowledge.</p></div>
+      <div class="card"><div class="card-icon">🗺️</div><h3>Mind Mapping</h3><p>Draw your topic in the centre, then branch out with related ideas. Your brain remembers visuals and connections far better than bullet-point lists. Use colour and images.</p></div>
+      <div class="card light-teal"><div class="card-icon">🃏</div><h3>Flashcard Recall</h3><p>Write a question on one side, the answer on the other. Test yourself — don't just read. The act of trying to retrieve an answer (even if you get it wrong) builds memory far stronger than re-reading.</p></div>
+      <div class="card steel"><div class="card-icon">🎭</div><h3>Teach Someone Else</h3><p>Explaining to a friend forces you to organise your thinking, notice what you don't know, and use different words. Students who teach others retain up to 90% of the material.</p></div>
+      <div class="card"><div class="card-icon">🎵</div><h3>Set It to Music</h3><p>Turn facts, formulas, or sequences into a song or rap. Music activates emotional memory in your brain, making information far stickier. (If it embarrasses you, it will stick even better.)</p></div>
+      <div class="card yellow"><div class="card-icon">📖</div><h3>The Story Method</h3><p>Turn dry facts into a story with characters, plot and drama. Your brain evolved to remember stories — it's one of the oldest and most powerful learning tools humans have.</p></div>
+      <div class="card light-teal"><div class="card-icon">🎨</div><h3>Sketch Notes</h3><p>Replace traditional notes with drawings, doodles, and visual summaries. You don't need to be artistic — stick figures and arrows work perfectly. The act of visual thinking deepens understanding.</p></div>
+      <div class="card steel"><div class="card-icon">❓</div><h3>Question Storming</h3><p>Instead of taking notes on what you read, write down every question the content raises. Then research the answers. Questions drive curiosity — and curiosity drives memory.</p></div>
+      <div class="card yellow"><div class="card-icon">✏️</div><h3>Draw It</h3><p>Represent concepts through sketches, diagrams, comics, or visual notes. You don't need artistic skill — a rough drawing forces your brain to decide what the concept really looks like, which deepens understanding.</p></div>
+      <div class="card"><div class="card-icon">⏱️</div><h3>One-Minute Summary</h3><p>After a lesson or reading, set a timer for one minute and summarise the most important ideas — out loud or in writing. The time pressure forces you to prioritise and think fast, which strengthens memory.</p></div>
+      <div class="card light-teal"><div class="card-icon">🔗</div><h3>Create Analogies</h3><p>Compare new learning to something already familiar. "This works like…" or "It's similar to…" statements help your brain anchor new information to existing knowledge, making it far easier to remember.</p></div>
+      <div class="card steel"><div class="card-icon">🤸</div><h3>Use Gestures and Movement</h3><p>Associate concepts with physical actions or movements. Acting out a process, walking while reciting, or using hand gestures to represent ideas engages your body in the learning — and your body remembers too.</p></div>
+      <div class="card yellow"><div class="card-icon">🧩</div><h3>Dual Coding</h3><p>Combine words with images, diagrams, symbols, or flowcharts. When information is encoded in two formats — verbal and visual — your brain has two pathways to retrieve it, making recall significantly stronger.</p></div>
+      <div class="card"><div class="card-icon">🧠</div><h3>Retrieval Brain Dump</h3><p>Write down everything you can remember about a topic — without looking at any notes. This active retrieval is one of the most powerful learning techniques proven by research. Then check what you missed.</p></div>
+      <div class="card light-teal"><div class="card-icon">🎨</div><h3>Colour Coding</h3><p>Assign colours to categories, themes, or relationships across your notes. The visual pattern helps your brain organise and connect information, making structure visible at a glance during revision.</p></div>
+      <div class="card steel"><div class="card-icon">🏛️</div><h3>Memory Palaces</h3><p>Mentally place pieces of information in specific spots around a familiar location — your home, your school route. When you mentally walk through the space, each spot triggers the information stored there.</p></div>
+      <div class="card yellow"><div class="card-icon">🔤</div><h3>Create Acronyms and Mnemonics</h3><p>Develop memorable shortcuts for key information. Turn the first letters of a list into a word, invent a silly sentence, or create a rhyme. The stranger and more personal the mnemonic, the better it sticks.</p></div>
+      <div class="card"><div class="card-icon">⚖️</div><h3>Compare and Contrast Tables</h3><p>Draw a table to identify similarities and differences between ideas, concepts, or events. Forcing your brain to compare things side by side builds deeper understanding than studying each one in isolation.</p></div>
+      <div class="card light-teal"><div class="card-icon">🏆</div><h3>Rank and Justify</h3><p>Order concepts by importance, effectiveness, impact, or significance — then defend your ranking. There are no perfectly right answers; the thinking that goes into justifying your order is the learning.</p></div>
+      <div class="card steel"><div class="card-icon">🔮</div><h3>Make Predictions</h3><p>Before learning the answer, predict what you think it will be. Checking your prediction — whether right or wrong — creates a powerful memory trace. Being wrong is especially effective at locking in the correct information.</p></div>
+    </div>
+    <hr class="divider" />
+    <div class="highlight"><h3>The Learning Pyramid</h3><p>Studies suggest we remember roughly <strong>10%</strong> of what we read, <strong>20%</strong> of what we hear, <strong>50%</strong> of what we discuss — and up to <strong>90%</strong> of what we teach to others. The more active the learning, the deeper it sticks.</p></div>
+    <div class="quote"><p>"Tell me and I forget. Teach me and I remember. Involve me and I learn."</p><cite>— Benjamin Franklin</cite></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- WAYS TO STUDY                                                   -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section id="page-study" class="page">
+  <div class="content">
+    <p class="section-label">Study Smarter</p>
+    <h1 class="page-title">Creative Ways to Study</h1>
+    <p class="page-subtitle">Where, when, and how you study changes everything. Try these approaches.</p>
+    <div class="card-grid">
+      <div class="card yellow"><div class="card-icon">🍅</div><h3>The Pomodoro Technique</h3><p>Study for 25 minutes with full focus, then take a 5-minute break. After 4 rounds, take a 20-minute break. Short bursts beat marathon sessions — your brain needs rest to consolidate what it just learned.</p></div>
+      <div class="card"><div class="card-icon">🔀</div><h3>Interleaving</h3><p>Instead of studying one subject for 2 hours, mix different topics in the same session — 30 mins maths, 30 mins English, 30 mins science. Switching forces your brain to retrieve and differentiate, which strengthens memory.</p></div>
+      <div class="card light-teal"><div class="card-icon">📅</div><h3>Spaced Repetition</h3><p>Review material at increasing intervals: day 1, day 3, day 7, day 14. Each review refreshes the memory just before it fades. This is the single most efficient study technique proven by research.</p></div>
+      <div class="card steel"><div class="card-icon">🧪</div><h3>Practice Testing</h3><p>Find past papers, create your own quiz, or ask someone to test you. Retrieving information from memory is 10× more effective than reading it again. Don't wait until exam time to start testing yourself.</p></div>
+    </div>
+    <hr class="divider" />
+    <p class="section-label">Your Study Space</p>
+    <h2 style="font-size:1.6rem;font-weight:800;margin:0 0 20px;">Setting Up for Success</h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">📵</div><h3>Phone Away</h3><p>Having your phone visible — even face down — reduces cognitive capacity. Put it in another room during focused study time. Even one notification disrupts your thinking for up to 20 minutes.</p></div>
+      <div class="card yellow"><div class="card-icon">🎧</div><h3>The Music Question</h3><p>Music with lyrics harms reading and writing tasks (your brain processes language twice). For repetitive tasks, instrumental music or nature sounds can help. For most studying — silence wins.</p></div>
+      <div class="card light-teal"><div class="card-icon">💡</div><h3>Change Your Location</h3><p>Studying in different places actually improves memory — your brain links information to its environment. Try the library, kitchen table, and outside. Variety strengthens recall.</p></div>
+    </div>
+    <div class="yellow-box"><h3>The Before-You-Start Ritual</h3><p>Take 2 minutes before every study session to: write down exactly what you want to achieve, close all apps except what you need, and take three slow breaths. This primes your brain to focus and tells it "learning mode: ON."</p></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Dump your brain first</h4><p>Write down everything on your mind (worries, to-dos, random thoughts) onto paper before studying. This clears your working memory so it's free to learn.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Start with the hardest thing</h4><p>Your willpower and focus are highest at the start of a session. Tackle the hardest content first, and leave easier review tasks for when energy dips.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>End with a recap</h4><p>Spend the last 5 minutes writing (from memory) what you just learned. No notes. This one habit can double how much you remember the next day.</p></div></div>
+    </div>
+    <hr class="divider" />
+    <p class="section-label">Physical &amp; Movement-Based</p>
+    <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:20px;">Get Your Body Into It</h2>
+    <div class="card-grid">
+      <div class="card yellow"><div class="card-icon">🚶</div><h3>Walk and Recall</h3><p>Walk around while reciting key facts, definitions, or processes from memory. Moving your body while thinking frees up mental space and keeps focus sharp.</p></div>
+      <div class="card"><div class="card-icon">🔲</div><h3>Corners Challenge</h3><p>Label room corners with categories and move to the correct corner when answering questions. Great for multiple-choice revision with friends or family.</p></div>
+      <div class="card light-teal"><div class="card-icon">📏</div><h3>Human Timeline</h3><p>Arrange events, steps, or concepts physically along a line on the floor. Standing in the right order forces you to understand sequence, not just memorise it.</p></div>
+      <div class="card steel"><div class="card-icon">📌</div><h3>Sticky Note Hunt</h3><p>Place questions around a room and move between stations answering them. The physical movement between questions creates memorable context for each answer.</p></div>
+      <div class="card yellow"><div class="card-icon">🏀</div><h3>Basketball Revision</h3><p>Answer a question correctly before taking a shot. Combining a small physical reward with retrieval practice makes revision feel more like a game.</p></div>
+      <div class="card"><div class="card-icon">🎾</div><h3>Throw-and-Answer</h3><p>Toss a ball between partners — the catcher must answer a question before throwing it back. Unpredictable turns keep both people alert and engaged.</p></div>
+      <div class="card light-teal"><div class="card-icon">🏃</div><h3>Learning Relay</h3><p>Teams race to complete parts of a problem or retrieve information in sequence. The competitive element raises energy and makes retrieval feel urgent.</p></div>
+      <div class="card steel"><div class="card-icon">🤲</div><h3>Gesture Coding</h3><p>Create hand motions for concepts, vocabulary, formulas, or processes. When you assign a unique gesture to each idea, your body becomes a retrieval cue.</p></div>
+      <div class="card yellow"><div class="card-icon">🟦</div><h3>Hopscotch Revision</h3><p>Number answers or concepts and jump to the correct square when a question is asked. Works brilliantly for sequences, formulas, and vocabulary in a fun setting.</p></div>
+      <div class="card"><div class="card-icon">🗺️</div><h3>Memory Walk</h3><p>Place pieces of information at locations around the room and physically revisit them to retrieve each one. Builds a spatial memory system that is surprisingly durable.</p></div>
+    </div>
+    <hr class="divider" />
+    <p class="section-label">Creative &amp; Visual</p>
+    <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:20px;">Make It Memorable</h2>
+    <div class="card-grid">
+      <div class="card light-teal"><div class="card-icon">💬</div><h3>Comic Strip Learning</h3><p>Turn concepts into a short comic story. Designing characters, setting, and dialogue around a topic forces you to translate abstract ideas into concrete, visual narrative.</p></div>
+      <div class="card steel"><div class="card-icon">✏️</div><h3>Doodle Notes</h3><p>Combine sketches, icons, arrows, and keywords while studying. Visual and verbal processing together create stronger, more interconnected memory traces.</p></div>
+      <div class="card yellow"><div class="card-icon">🧱</div><h3>Build a Model</h3><p>Use Lego, blocks, paper, or craft materials to represent an idea or process physically. Constructing something forces a level of understanding that reading alone never achieves.</p></div>
+      <div class="card"><div class="card-icon">📊</div><h3>Create an Infographic</h3><p>Condense information into visuals and key points on a single page. Deciding what is important enough to include is itself a powerful act of learning.</p></div>
+      <div class="card light-teal"><div class="card-icon">🎵</div><h3>Set It to Music</h3><p>Create a rap, song, or rhythm to remember information. Music activates emotional memory — and the more ridiculous the song, the better it tends to stick.</p></div>
+      <div class="card steel"><div class="card-icon">🎨</div><h3>Colour-Coded Connections</h3><p>Use specific colours to show relationships between concepts across your notes. Visual patterns make structure visible at a glance and help reveal connections you hadn't noticed.</p></div>
+    </div>
+    <hr class="divider" />
+    <p class="section-label">Social &amp; Interactive</p>
+    <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:20px;">Learn With Others</h2>
+    <div class="card-grid">
+      <div class="card yellow"><div class="card-icon">🧸</div><h3>Teach a Toy</h3><p>Explain the topic to a stuffed animal, action figure, or imaginary student. The Feynman Technique without the pressure — you still have to find the words, and that's the whole point.</p></div>
+      <div class="card"><div class="card-icon">🎤</div><h3>Quiz Show</h3><p>Turn revision into a game-show format with points, rounds, and categories. Competition releases dopamine and makes the retrieval feel rewarding rather than painful.</p></div>
+      <div class="card light-teal"><div class="card-icon">🧑‍🏫</div><h3>Expert Panel</h3><p>Each student becomes an expert on one area and answers questions from the group. Knowing you will be questioned by peers is one of the most effective motivators for deep preparation.</p></div>
+      <div class="card steel"><div class="card-icon">⚡</div><h3>Speed Teaching</h3><p>Explain a concept to a partner in 60 seconds, then swap and repeat. The time limit forces prioritisation — you can't include everything, so you have to decide what actually matters most.</p></div>
+    </div>
+    <hr class="divider" />
+    <p class="section-label">Outside the Box</p>
+    <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:16px;">Unusual Study Methods Worth Trying</h2>
+    <div class="unusual-grid">
+      <div class="unusual-card">📝 Write notes in chalk outside</div>
+      <div class="unusual-card">🗺️ Create a treasure hunt where clues require solving questions</div>
+      <div class="unusual-card">🗺️ Build a giant floor mind map using sheets of paper</div>
+      <div class="unusual-card">🎙️ Record a podcast explaining the topic</div>
+      <div class="unusual-card">🖊️ Study while standing at a whiteboard instead of sitting</div>
+      <div class="unusual-card">🏆 Create "Top 10 Things You Must Know" lists</div>
+      <div class="unusual-card">🃏 Use playing cards with questions on one side and answers on the other</div>
+      <div class="unusual-card">🎲 Turn your revision into a board game</div>
+      <div class="unusual-card">🎭 Act out scientific processes or historical events</div>
+      <div class="unusual-card">😂 Create memes that accurately represent concepts</div>
+    </div>
+    <div class="yellow-box" style="margin-top:40px;"><h3>The Strongest Combination</h3><p>Retrieval practice + movement + teaching someone else — because you are actively recalling information rather than simply rereading it. For example, a "walk-and-recall" activity followed by a one-minute explanation to a partner is often far more effective than another 20 minutes of reading notes.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- PRACTICAL IDEAS                                                  -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section id="page-practical" class="page">
+  <div class="content">
+    <p class="section-label">Start Today</p>
+    <h1 class="page-title">Practical Ideas</h1>
+    <p class="page-subtitle">Tick off what you'll try this week. Small changes, big results.</p>
+    <div class="checklist">
+      <h3>Start Here: Your Challenges</h3>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>After your next class, close your notes and write down everything you can remember — without looking. Then check what you missed.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Pick one topic and explain it out loud to yourself as if you're teaching it to a younger sibling. Notice where you get stuck.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Try the Pomodoro technique for your next homework session — 25 min on, 5 min off. Time yourself and see how it feels.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Create a mind map for one of your subjects. Put the main topic in the middle and branch out with everything you know.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Study in a different location than usual and notice how your focus changes.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Find 5 past exam questions for a subject you have a test in. Try them without looking at your notes first.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Go to sleep at a regular time for three nights in a row and notice if your focus improves during class.</label>
+      </label>
+    </div>
+    <hr class="divider" />
+    <p class="section-label">Quick Wins</p>
+    <h2 style="font-size:1.6rem;font-weight:800;margin-bottom:20px;">Try These Right Now</h2>
+    <div class="card-grid">
+      <div class="card yellow"><div class="card-icon">✏️</div><h3>The 2-Minute Review</h3><p>At the end of every lesson, spend 2 minutes writing the 3 most important things you just learned. Do this consistently and your exam revision will be a breeze.</p></div>
+      <div class="card"><div class="card-icon">🤝</div><h3>Find a Study Buddy</h3><p>Quiz each other, explain topics to each other, and challenge each other. Peer teaching is one of the most effective learning methods — plus it's more fun.</p></div>
+      <div class="card light-teal"><div class="card-icon">📓</div><h3>The Error Log</h3><p>Keep a notebook of every question you get wrong. Review it weekly. Your mistakes are your most valuable learning resource — don't ignore them.</p></div>
+      <div class="card steel"><div class="card-icon">🌙</div><h3>Sleep Is Not Optional</h3><p>Your brain processes and stores memories during sleep. Teens need 8–10 hours. Studying until midnight then sleeping 5 hours undoes much of what you learned.</p></div>
+      <div class="card"><div class="card-icon">🏃</div><h3>Move Your Body</h3><p>Even a 10-minute walk before studying increases blood flow to your brain and improves focus for up to 2 hours. Exercise is cognitive fuel.</p></div>
+      <div class="card yellow"><div class="card-icon">🗓️</div><h3>Plan the Week Ahead</h3><p>Sunday evening: write down every assessment, task, or goal for the coming week. Students with a written plan are significantly more likely to follow through.</p></div>
+    </div>
+    <div class="highlight"><h3>Remember This</h3><p>You don't need to do everything at once. Pick <strong>one strategy</strong> from this site, use it consistently for two weeks, and notice the difference. Then add another. Learning how to learn is itself a skill that builds over time.</p></div>
+    <div class="quote"><p>"The more that you read, the more things you will know. The more that you learn, the more places you'll go."</p><cite>— Dr. Seuss</cite></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- MY REFLECTION                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section id="page-reflection" class="page">
+  <div class="content">
+    <p class="section-label">Know Yourself</p>
+    <h1 class="page-title">My Learning Reflection</h1>
+    <p class="page-subtitle">Track where you are, where you want to be, and what's working for you.</p>
+    <div class="reflect-summary">
+      <div class="reflect-stat s-tick"><span id="tick-count">0</span><label>Worked for me</label></div>
+      <div class="reflect-stat s-cross"><span id="cross-count">0</span><label>Not for me</label></div>
+      <div class="reflect-stat s-yet"><span id="yet-count">53</span><label>Yet to try</label></div>
+    </div>
+    <p class="section-label">My Learner Level</p>
+    <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;">Where are you — and where do you want to be?</h2>
+    <div class="reflect-sliders">
+      <div class="slider-wrap">
+        <div class="slider-label">Where I am now</div>
+        <div class="slider-level-name" id="current-name">Performance Learner</div>
+        <input type="range" min="1" max="6" step="1" value="3" id="slider-current" class="lship-slider" oninput="updateSliders()" />
+        <div class="slider-ends"><span>Non-Learner</span><span>Agile Learner</span></div>
+      </div>
+      <div class="slider-wrap">
+        <div class="slider-label">Where I want to be</div>
+        <div class="slider-level-name target" id="target-name">Agile Learner</div>
+        <input type="range" min="1" max="6" step="1" value="6" id="slider-target" class="lship-slider target" oninput="updateSliders()" />
+        <div class="slider-ends"><span>Non-Learner</span><span>Agile Learner</span></div>
+      </div>
+    </div>
+    <div class="reflect-gap" id="reflect-gap"></div>
+    <hr class="divider" />
+    <p class="section-label">My Methods Tracker</p>
+    <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:8px;">Tick what works. Cross what doesn't.</h2>
+    <p style="font-size:0.98rem;color:#555;margin-bottom:28px;line-height:1.6;">All methods from this app are listed below. ✓ = worked for me or want to try again &nbsp;|&nbsp; ✗ = didn't work or not for me. Your choices are saved automatically.</p>
+    <div id="method-tracker"></div>
+    <button class="reflect-reset" onclick="resetReflection()">Reset all choices</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- LEARNERSHIP                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section id="page-learnership" class="page">
+  <div class="learnership-hero">
+    <h1>LEARNERSHIP: <span>THE SKILL OF LEARNING</span></h1>
+    <p class="sub">James Anderson</p>
+  </div>
+  <div class="learnership-wrap">
+    <p style="font-size:1.05rem;line-height:1.7;margin-bottom:28px;max-width:780px;">Where do <em>you</em> sit as a learner? James Anderson's Learnership framework describes six types of learners across five key dimensions. The goal is to move upward — from Non-Learner toward Agile Learner — by developing how you respond to challenge, mistakes, feedback, and how you invest your time and energy.</p>
+    <div class="lship-scroll">
+      <div class="lship-inner">
+        <div class="lship-header">
+          <div></div>
+          <div class="lship-col-label col-challenge"><div class="col-icon-wrap">🏔️</div><span class="col-name">Challenge</span></div>
+          <div class="lship-col-label col-habits"><div class="col-icon-wrap">🧠</div><span class="col-name">Habits of Mind</span></div>
+          <div class="lship-col-label col-mistakes"><div class="col-icon-wrap">⚠️</div><span class="col-name">Mistakes</span></div>
+          <div class="lship-col-label col-feedback"><div class="col-icon-wrap">💬</div><span class="col-name">Feedback</span></div>
+          <div class="lship-col-label col-time"><div class="col-icon-wrap">⏱️</div><span class="col-name">Time &amp; Energy</span></div>
+        </div>
+        <div><span class="tier-label tier-green">Growing Learners</span></div>
+        <div class="lship-row row-agile">
+          <button class="lship-row-label lship-btn" onclick="openModal('agile')">Agile Learner</button>
+          <button class="lship-cell lship-btn" onclick="openModal('agile-challenge')">Embraces</button>
+          <button class="lship-cell lship-btn" onclick="openModal('agile-habits')">Cultivates</button>
+          <button class="lship-cell lship-btn" onclick="openModal('agile-mistakes')">Designs</button>
+          <button class="lship-cell lship-btn" onclick="openModal('agile-feedback')">Tailors</button>
+          <button class="lship-cell lship-btn" onclick="openModal('agile-time')">Growing</button>
+        </div>
+        <div class="lship-row row-independent">
+          <button class="lship-row-label lship-btn" onclick="openModal('independent')">Independent Learner</button>
+          <button class="lship-cell lship-btn" onclick="openModal('independent-challenge')">Targets</button>
+          <button class="lship-cell lship-btn" onclick="openModal('independent-habits')">Develops</button>
+          <button class="lship-cell lship-btn" onclick="openModal('independent-mistakes')">Uses</button>
+          <button class="lship-cell lship-btn" onclick="openModal('independent-feedback')">Requests</button>
+          <button class="lship-cell lship-btn" onclick="openModal('independent-time')">Striving</button>
+        </div>
+        <div class="lship-row row-directed">
+          <button class="lship-row-label lship-btn" onclick="openModal('directed')">Directed Learner</button>
+          <button class="lship-cell lship-btn" onclick="openModal('directed-challenge')">Attempts</button>
+          <button class="lship-cell lship-btn" onclick="openModal('directed-habits')">Extends</button>
+          <button class="lship-cell lship-btn" onclick="openModal('directed-mistakes')">Corrects</button>
+          <button class="lship-cell lship-btn" onclick="openModal('directed-feedback')">Responds</button>
+          <button class="lship-cell lship-btn" onclick="openModal('directed-time')">Producing</button>
+        </div>
+        <div class="lship-divider"></div>
+        <div><span class="tier-label tier-blue">Performance Learners</span></div>
+        <div class="lship-row row-performance">
+          <button class="lship-row-label lship-btn" onclick="openModal('performance')">Performance Learner</button>
+          <button class="lship-cell lship-btn" onclick="openModal('performance-challenge')">Limits</button>
+          <button class="lship-cell lship-btn" onclick="openModal('performance-habits')">Applies</button>
+          <button class="lship-cell lship-btn" onclick="openModal('performance-mistakes')">Avoids</button>
+          <button class="lship-cell lship-btn" onclick="openModal('performance-feedback')">Selects</button>
+          <button class="lship-cell lship-btn" onclick="openModal('performance-time')">Performing</button>
+        </div>
+        <div class="lship-row row-beginner">
+          <button class="lship-row-label lship-btn" onclick="openModal('beginner')">Beginner Learner</button>
+          <button class="lship-cell lship-btn" onclick="openModal('beginner-challenge')">Reduces</button>
+          <button class="lship-cell lship-btn" onclick="openModal('beginner-habits')">Describes</button>
+          <button class="lship-cell lship-btn" onclick="openModal('beginner-mistakes')">Recognises</button>
+          <button class="lship-cell lship-btn" onclick="openModal('beginner-feedback')">Acknowledges</button>
+          <button class="lship-cell lship-btn" onclick="openModal('beginner-time')">Doing</button>
+        </div>
+        <div class="lship-row row-non">
+          <button class="lship-row-label lship-btn" onclick="openModal('non')">Non-Learner</button>
+          <button class="lship-cell lship-btn" onclick="openModal('non-challenge')">Avoids</button>
+          <button class="lship-cell lship-btn" onclick="openModal('non-habits')">Ignorant</button>
+          <button class="lship-cell lship-btn" onclick="openModal('non-mistakes')">Ignores</button>
+          <button class="lship-cell lship-btn" onclick="openModal('non-feedback')">Disregards</button>
+          <button class="lship-cell lship-btn" onclick="openModal('non-time')">Wastes</button>
+        </div>
+      </div>
+    </div>
+    <p class="lship-credit">Framework by <strong>James Anderson</strong> &mdash; <a href="https://www.jamesanderson.com.au/learnership" target="_blank" rel="noopener">www.jamesanderson.com.au/learnership</a></p>
+    <hr class="divider" />
+    <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:20px;">What does each level mean?</h2>
+    <div class="card-grid">
+      <div class="card" style="border-top-color:#3a7a1e;"><div class="card-icon">🚀</div><h3 style="color:#3a7a1e;">Agile Learner</h3><p>Actively seeks out challenge, deliberately builds good habits of mind, designs systems to learn from mistakes, tailors feedback to their goals, and is always growing — even outside of school.</p></div>
+      <div class="card" style="border-top-color:#4d9428;"><div class="card-icon">🎯</div><h3 style="color:#4d9428;">Independent Learner</h3><p>Sets their own targets, develops their habits, uses mistakes intentionally, actively requests feedback, and is always striving to improve their performance.</p></div>
+      <div class="card" style="border-top-color:#6ab535;"><div class="card-icon">📋</div><h3 style="color:#6ab535;">Directed Learner</h3><p>Will attempt challenge when directed, extends their habits when prompted, corrects mistakes pointed out to them, and responds to feedback given — but needs guidance to do so.</p></div>
+      <div class="card" style="border-top-color:#2e6fa8;"><div class="card-icon">📊</div><h3 style="color:#2e6fa8;">Performance Learner</h3><p>Limits challenge to what they know they can do, applies only familiar habits, avoids looking at mistakes, selects convenient feedback only, and is focused purely on performing (marks, grades).</p></div>
+      <div class="card" style="border-top-color:#1f5490;"><div class="card-icon">🌱</div><h3 style="color:#1f5490;">Beginner Learner</h3><p>Reduces challenge to the minimum, can only describe habits without using them, recognises mistakes but doesn't act on them, and acknowledges feedback without doing anything about it.</p></div>
+      <div class="card" style="border-top-color:#163a6b;"><div class="card-icon">🚧</div><h3 style="color:#163a6b;">Non-Learner</h3><p>Avoids challenge entirely, is ignorant of habits of mind, ignores mistakes, disregards feedback, and wastes the time and energy available for learning. The starting point — everyone can move up from here.</p></div>
+    </div>
+    <div class="yellow-box"><h3>The Key Insight</h3><p>These aren't fixed personality types — they're <strong>behaviours</strong>. You might be an Agile Learner in one subject and a Performance Learner in another. The goal is to notice where you are and take one deliberate step upward. That's what a real learner does.</p></div>
+  </div>
+</section>
+
+<!-- ── MODAL ───────────────────────────────────────────────────── -->
+<div class="modal-backdrop" id="modal" onclick="handleBackdropClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-badges">
+        <span class="modal-badge learner" id="modal-learner"></span>
+        <span class="modal-badge dim" id="modal-dim"></span>
+      </div>
+      <div class="modal-word" id="modal-word"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section-title">What it means</div>
+      <p class="modal-explanation" id="modal-explanation"></p>
+      <div class="modal-section-title">Characteristics</div>
+      <ul class="modal-chars" id="modal-chars"></ul>
+      <div class="modal-section-title" id="modal-action-label"></div>
+      <div id="modal-action"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────── -->
+<footer style="background:var(--dark);color:var(--light-teal);text-align:center;padding:28px;font-size:0.95rem;">
+  <p>Breaking Through the Ceiling</p>
+</footer>
+
+<!-- ── JAVASCRIPT ──────────────────────────────────────────────── -->
+<script>
+  /* ── REFLECTION ─────────────────────────────────────────────── */
+  const LEVELS = ['','Non-Learner','Beginner Learner','Performance Learner','Directed Learner','Independent Learner','Agile Learner'];
+
+  const METHODS = [
+    {id:'feynman',       label:'The Feynman Technique',        cat:'Ways to Learn'},
+    {id:'mind-map',      label:'Mind Mapping',                 cat:'Ways to Learn'},
+    {id:'flashcard',     label:'Flashcard Recall',             cat:'Ways to Learn'},
+    {id:'teach-someone', label:'Teach Someone Else',           cat:'Ways to Learn'},
+    {id:'music',         label:'Set It to Music',              cat:'Ways to Learn'},
+    {id:'story',         label:'The Story Method',             cat:'Ways to Learn'},
+    {id:'sketch-notes',  label:'Sketch Notes',                 cat:'Ways to Learn'},
+    {id:'q-storm',       label:'Question Storming',            cat:'Ways to Learn'},
+    {id:'draw-it',       label:'Draw It',                      cat:'Ways to Learn'},
+    {id:'one-min',       label:'One-Minute Summary',           cat:'Ways to Learn'},
+    {id:'analogies',     label:'Create Analogies',             cat:'Ways to Learn'},
+    {id:'gestures',      label:'Use Gestures and Movement',    cat:'Ways to Learn'},
+    {id:'dual-coding',   label:'Dual Coding',                  cat:'Ways to Learn'},
+    {id:'brain-dump',    label:'Retrieval Brain Dump',         cat:'Ways to Learn'},
+    {id:'colour-code',   label:'Colour Coding',                cat:'Ways to Learn'},
+    {id:'mem-palace',    label:'Memory Palaces',               cat:'Ways to Learn'},
+    {id:'acronyms',      label:'Create Acronyms & Mnemonics',  cat:'Ways to Learn'},
+    {id:'comp-contrast', label:'Compare and Contrast Tables',  cat:'Ways to Learn'},
+    {id:'rank-justify',  label:'Rank and Justify',             cat:'Ways to Learn'},
+    {id:'predictions',   label:'Make Predictions',             cat:'Ways to Learn'},
+    {id:'pomodoro',      label:'Pomodoro Technique',           cat:'Study Strategies'},
+    {id:'interleaving',  label:'Interleaving',                 cat:'Study Strategies'},
+    {id:'spaced-rep',    label:'Spaced Repetition',            cat:'Study Strategies'},
+    {id:'prac-test',     label:'Practice Testing',             cat:'Study Strategies'},
+    {id:'walk-recall',   label:'Walk and Recall',              cat:'Physical & Movement'},
+    {id:'corners',       label:'Corners Challenge',            cat:'Physical & Movement'},
+    {id:'h-timeline',    label:'Human Timeline',               cat:'Physical & Movement'},
+    {id:'sticky-hunt',   label:'Sticky Note Hunt',             cat:'Physical & Movement'},
+    {id:'basketball',    label:'Basketball Revision',          cat:'Physical & Movement'},
+    {id:'throw-answer',  label:'Throw-and-Answer',             cat:'Physical & Movement'},
+    {id:'relay',         label:'Learning Relay',               cat:'Physical & Movement'},
+    {id:'gesture-code',  label:'Gesture Coding',               cat:'Physical & Movement'},
+    {id:'hopscotch',     label:'Hopscotch Revision',           cat:'Physical & Movement'},
+    {id:'mem-walk',      label:'Memory Walk',                  cat:'Physical & Movement'},
+    {id:'comic-strip',   label:'Comic Strip Learning',         cat:'Creative & Visual'},
+    {id:'doodle-notes',  label:'Doodle Notes',                 cat:'Creative & Visual'},
+    {id:'build-model',   label:'Build a Model',                cat:'Creative & Visual'},
+    {id:'infographic',   label:'Create an Infographic',        cat:'Creative & Visual'},
+    {id:'colour-conn',   label:'Colour-Coded Connections',     cat:'Creative & Visual'},
+    {id:'teach-toy',     label:'Teach a Toy',                  cat:'Social & Interactive'},
+    {id:'quiz-show',     label:'Quiz Show',                    cat:'Social & Interactive'},
+    {id:'expert-panel',  label:'Expert Panel',                 cat:'Social & Interactive'},
+    {id:'speed-teach',   label:'Speed Teaching',               cat:'Social & Interactive'},
+    {id:'chalk',         label:'Write notes in chalk outside', cat:'Unusual Methods'},
+    {id:'treasure',      label:'Treasure hunt revision',       cat:'Unusual Methods'},
+    {id:'floor-map',     label:'Giant floor mind map',         cat:'Unusual Methods'},
+    {id:'podcast',       label:'Record a podcast',             cat:'Unusual Methods'},
+    {id:'whiteboard',    label:'Study at a whiteboard',        cat:'Unusual Methods'},
+    {id:'top-ten',       label:'"Top 10 Things" lists',        cat:'Unusual Methods'},
+    {id:'card-flash',    label:'Playing card flashcards',      cat:'Unusual Methods'},
+    {id:'board-game',    label:'Board game revision',          cat:'Unusual Methods'},
+    {id:'act-out',       label:'Act out processes or events',  cat:'Unusual Methods'},
+    {id:'memes',         label:'Create memes',                 cat:'Unusual Methods'},
+  ];
+
+  function getMethodState(id) { return localStorage.getItem('method_'+id)||''; }
+  function setMethodState(id,state) { localStorage.setItem('method_'+id,state); }
+
+  function toggleMethod(id,action) {
+    const current = getMethodState(id);
+    setMethodState(id, current===action ? '' : action);
+    renderMethodCard(id);
+    updateCounts();
+  }
+
+  function renderMethodCard(id) {
+    const card = document.querySelector('[data-method="'+id+'"]');
+    if (!card) return;
+    const state = getMethodState(id);
+    card.classList.toggle('ticked',  state==='tick');
+    card.classList.toggle('crossed', state==='cross');
+  }
+
+  function updateCounts() {
+    let ticks=0, crosses=0;
+    METHODS.forEach(m => { const s=getMethodState(m.id); if(s==='tick') ticks++; if(s==='cross') crosses++; });
+    document.getElementById('tick-count').textContent  = ticks;
+    document.getElementById('cross-count').textContent = crosses;
+    document.getElementById('yet-count').textContent   = METHODS.length - ticks - crosses;
+  }
+
+  function buildMethodTracker() {
+    const cats = [...new Set(METHODS.map(m=>m.cat))];
+    const container = document.getElementById('method-tracker');
+    if (!container) return;
+    container.innerHTML = cats.map(cat => {
+      const items = METHODS.filter(m=>m.cat===cat);
+      return `<div class="method-category">
+        <div class="method-category-title">${cat}</div>
+        <div class="method-grid">
+          ${items.map(m=>`
+            <div class="method-card" data-method="${m.id}">
+              <span class="method-name">${m.label}</span>
+              <div class="method-btns">
+                <button class="btn-tick"  onclick="toggleMethod('${m.id}','tick')"  title="Worked for me">✓</button>
+                <button class="btn-cross" onclick="toggleMethod('${m.id}','cross')" title="Not for me">✗</button>
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+    }).join('');
+    METHODS.forEach(m=>renderMethodCard(m.id));
+    updateCounts();
+  }
+
+  function updateSliders() {
+    const cur = parseInt(document.getElementById('slider-current').value);
+    const tgt = parseInt(document.getElementById('slider-target').value);
+    document.getElementById('current-name').textContent = LEVELS[cur];
+    document.getElementById('target-name').textContent  = LEVELS[tgt];
+    localStorage.setItem('reflect_current', cur);
+    localStorage.setItem('reflect_target',  tgt);
+    const gap = tgt - cur;
+    const el  = document.getElementById('reflect-gap');
+    if (cur===6) {
+      el.className='reflect-gap no-gap-top';
+      el.innerHTML='🏆 You\'re at the top — <strong>Agile Learner</strong>. Keep cultivating your habits and modelling great learning for others.';
+    } else if (gap<=0) {
+      el.className='reflect-gap no-gap';
+      el.innerHTML='Your current level and target are the same. When you\'re ready to push further, move your target higher.';
+    } else {
+      const steps = gap===1 ? '1 level' : gap+' levels';
+      el.className='reflect-gap has-gap';
+      el.innerHTML=`You're aiming to move up <strong>${steps}</strong> — from <strong>${LEVELS[cur]}</strong> to <strong>${LEVELS[tgt]}</strong>. Visit the <a onclick="showPage('learnership')">Learnership page</a> to see exactly what to work on in each dimension.`;
+    }
+  }
+
+  function resetReflection() {
+    if (!confirm('Reset all your method choices? This cannot be undone.')) return;
+    METHODS.forEach(m=>localStorage.removeItem('method_'+m.id));
+    METHODS.forEach(m=>renderMethodCard(m.id));
+    updateCounts();
+  }
+
+  function initReflection() {
+    const cur = parseInt(localStorage.getItem('reflect_current')||'3');
+    const tgt = parseInt(localStorage.getItem('reflect_target') ||'6');
+    document.getElementById('slider-current').value = cur;
+    document.getElementById('slider-target').value  = tgt;
+    updateSliders();
+    buildMethodTracker();
+  }
+
+  /* ── MODAL DATA ──────────────────────────────────────────────── */
+  const MODAL_DATA = {
+    'agile':{learner:'Overview',dim:'Agile Learner',word:'Agile Learner',explanation:'The Agile Learner is at the top of the Learnership framework. They see learning as a never-ending process and actively design their own growth. They don\'t wait for teachers — they seek out challenge, cultivate good thinking habits, and use every mistake and piece of feedback as fuel.',chars:['Seeks challenge well beyond what is required','Deliberately builds and refines habits of mind','Designs situations to learn from mistakes','Actively tailors feedback to their exact needs','Always investing in growth, not just performance'],mastery:'You are demonstrating the highest level of learnership. Keep modelling this for others, stay curious, and keep asking: "What can I do better next?"'},
+    'independent':{learner:'Overview',dim:'Independent Learner',word:'Independent Learner',explanation:'The Independent Learner takes ownership of their learning without needing to be told. They set their own goals, develop strategies, seek feedback, and make good use of their mistakes. The next step is to move from developing to designing — creating their own learning experiences rather than choosing from what\'s available.',chars:['Sets their own learning targets','Actively develops new strategies without prompting','Uses mistakes as learning opportunities','Proactively requests feedback from teachers and peers','Always striving to push beyond current performance'],improve:'Start asking not just "how do I get better?" but "how can I design my own learning?" Move from choosing challenges to creating them yourself.'},
+    'directed':{learner:'Overview',dim:'Directed Learner',word:'Directed Learner',explanation:'The Directed Learner will engage with learning — but needs a teacher or someone else to initiate it. When told to attempt a challenge, they will. When given feedback, they respond. The key growth area is learning to do these things without being asked.',chars:['Responds well when guided by a teacher','Attempts challenges when they are assigned','Extends their habits when prompted','Corrects mistakes when identified by others','Focused on producing outputs rather than learning from them'],improve:'Take one small initiative per week: pick a challenge yourself, seek feedback before it\'s given, or review your own mistakes without waiting for a teacher to point them out.'},
+    'performance':{learner:'Overview',dim:'Performance Learner',word:'Performance Learner',explanation:'The Performance Learner is focused on how they look rather than how much they grow. They carefully manage their image — only attempting what they can do well, avoiding uncomfortable feedback, and protecting their grades. Their energy goes into performing, not learning.',chars:['Prioritises grades over genuine understanding','Avoids situations where they might fail visibly','Selects only comfortable, confirmatory feedback','Limits challenge to territory they already know well','Measures themselves by comparison with peers, not personal growth'],improve:'Shift your goal from "looking smart" to "getting smarter." Choose one situation this week where you risk getting something wrong — and see it as information, not failure.'},
+    'beginner':{learner:'Overview',dim:'Beginner Learner',word:'Beginner Learner',explanation:'The Beginner Learner has some awareness of what good learning looks like but is not yet putting it into practice. They can recognise good habits and acknowledge feedback but don\'t act on either. They do the minimum and stay firmly in their comfort zone.',chars:['Knows about good learning strategies but doesn\'t use them','Reduces challenges to feel safe','Goes through the motions without real engagement','Acknowledges feedback without acting on it','Recognises mistakes but doesn\'t investigate them'],improve:'Pick just one strategy from this site and use it once today. The gap between knowing and doing is exactly where you need to focus right now.'},
+    'non':{learner:'Overview',dim:'Non-Learner',word:'Non-Learner',explanation:'The Non-Learner is disengaged from the learning process entirely. They avoid challenge, ignore mistakes and feedback, waste learning time, and have no awareness of learning strategies. This is not a permanent label — it is a starting point, and everyone can move up from here.',chars:['Avoids challenge and difficulty entirely','Makes no use of mistakes or feedback','Has no deliberate strategies for learning','Wastes the time and energy available for learning','May be disruptive or mentally absent in class'],improve:'You don\'t need to leap to Agile Learner overnight. Start here: in your very next class or study session, spend just 10 genuine minutes trying. That\'s enough to begin.'},
+    'agile-challenge':{learner:'Agile Learner',dim:'Challenge',word:'Embraces',explanation:'The Agile Learner doesn\'t just accept challenges — they actively hunt for them. Difficulty is exciting because it signals the brain is growing. They seek out harder problems, more complex tasks, and situations that push well beyond their current limits.',chars:['Looks for harder problems voluntarily','Isn\'t satisfied by work that feels easy','Sees difficulty as a sign of growth, not failure','Volunteers for the hardest version of a task','Creates their own challenges when none are provided'],mastery:'You\'re already at the top — keep designing challenges for yourself that stretch you in new directions. Ask: "What\'s the hardest version of this I could attempt?"'},
+    'independent-challenge':{learner:'Independent Learner',dim:'Challenge',word:'Targets',explanation:'The Independent Learner deliberately selects specific challenges that will help them grow. They are strategic — they know where they need to improve and choose challenges that address that area directly.',chars:['Sets clear learning goals before tackling a challenge','Identifies weak areas and targets them specifically','Chooses challenges with purpose, not randomly','Reflects after a challenge on what they actually learned','Measures growth on specific skills over time'],improve:'Stop choosing challenges and start designing them. Ask: "How could I make this even harder or more useful?" Create your own stretch tasks rather than picking from what\'s already available.'},
+    'directed-challenge':{learner:'Directed Learner',dim:'Challenge',word:'Attempts',explanation:'The Directed Learner will try a challenge when a teacher assigns it. They don\'t seek challenge out, but they won\'t refuse when it arrives. The key word is "will" — they need the external push to start.',chars:['Waits to be told what to work on','Tries assigned tasks but never goes beyond them','Doesn\'t volunteer for harder options','Asks "do I have to?" rather than "what else can I try?"','Needs external motivation to engage with difficulty'],improve:'This week, set one challenge for yourself that nobody assigned. Pick an area you\'re weak in, create a specific goal, and attempt it without being told to.'},
+    'performance-challenge':{learner:'Performance Learner',dim:'Challenge',word:'Limits',explanation:'The Performance Learner deliberately keeps challenges within a range they know they can handle well. They avoid any situation where they might fail visibly, because their priority is looking capable, not growing.',chars:['Only attempts tasks they\'re already confident about','Avoids optional harder questions or extension work','Asks for easier alternatives rather than trying the hard version','Makes choices based on protecting marks, not gaining understanding','Feels real discomfort when asked to do something unfamiliar'],improve:'Choose one thing this week that you\'re not confident about and try it anyway. The outcome doesn\'t matter yet — the attempt is the learning.'},
+    'beginner-challenge':{learner:'Beginner Learner',dim:'Challenge',word:'Reduces',explanation:'The Beginner Learner actively makes challenges smaller than they need to be. When given a task, they find ways to simplify it until it\'s no longer really a challenge. This feels safe but prevents any real growth.',chars:['Asks for easier versions of tasks','Skips the difficult parts of assignments','Uses strategies that make work more comfortable but less effective','Avoids complexity even when they could handle it','Often negotiates down the difficulty of a task before starting'],improve:'Accept the task as given before you try to simplify it. Attempt the full challenge once — even badly — then decide if you need support. Trying and struggling is not the same as failing.'},
+    'non-challenge':{learner:'Non-Learner',dim:'Challenge',word:'Avoids',explanation:'The Non-Learner doesn\'t just avoid hard challenges — they avoid engaging with any learning challenge at all. They disengage, opt out, make excuses, or simply don\'t start.',chars:['Refuses to engage with difficult tasks','Distracts themselves or others when challenge appears','Makes excuses: "this is pointless", "I already know this"','Leaves tasks blank or incomplete','Gets others to do the work for them'],improve:'Pick the smallest possible piece of a challenge and just start it. Not the whole thing — just one sentence, one problem, one step. Starting is the hardest part.'},
+    'agile-habits':{learner:'Agile Learner',dim:'Habits of Mind',word:'Cultivates',explanation:'The Agile Learner doesn\'t just use good habits of mind — they actively grow them. They reflect on how they think, experiment with new approaches, and deliberately strengthen the mental habits that help them learn better over time.',chars:['Reflects regularly on how they learn, not just what they learn','Researches new learning strategies and tries them out','Models good thinking habits for peers','Notices when a habit isn\'t working and adapts it','Talks about learning with genuine curiosity and purpose'],mastery:'You\'re not just using habits — you\'re growing them. Share your approach with others, mentor peers, and keep asking: "What new thinking habit could I develop next?"'},
+    'independent-habits':{learner:'Independent Learner',dim:'Habits of Mind',word:'Develops',explanation:'The Independent Learner actively builds new habits of mind on their own initiative. They try new strategies, track what works, and invest in getting better at learning itself — not just getting better at a subject.',chars:['Experiments with new learning strategies without being told to','Tracks which habits help and which don\'t','Reads or watches content about how to learn better','Reflects on their thinking process after a study session','Tries different approaches to the same problem'],improve:'Start deliberately teaching your learning habits to someone else. Explaining how you think forces you to deepen and refine those habits until they become truly cultivated.'},
+    'directed-habits':{learner:'Directed Learner',dim:'Habits of Mind',word:'Extends',explanation:'The Directed Learner will extend their habits of mind when a teacher shows them how. They follow the suggested strategy and apply it — but only when prompted. They don\'t go searching independently for better ways to think and learn.',chars:['Follows learning strategies when shown in class','Applies habits during guided activities','Needs reminders to use good thinking strategies','Won\'t usually use habits outside of class without prompting','Responds well to explicit "now try this" instructions'],improve:'After a teacher shows you a new thinking strategy, use it again the next day without being told to. Commit to trying it three times before deciding whether it works for you.'},
+    'performance-habits':{learner:'Performance Learner',dim:'Habits of Mind',word:'Applies',explanation:'The Performance Learner uses the habits of mind they already have, but won\'t go out of their way to develop new ones. They\'ve found strategies that help them perform well enough, and they stick to them — even if better approaches exist.',chars:['Uses familiar study strategies repeatedly (usually re-reading or highlighting)','Resistant to trying unfamiliar approaches','Judges habits purely by whether they produce quick results','Sticks to comfort-zone strategies','Doesn\'t seek to develop new thinking tools'],improve:'Pick one new strategy from this site and try it in your very next study session — even if it feels less comfortable than usual. Discomfort is a sign you\'re building something new.'},
+    'beginner-habits':{learner:'Beginner Learner',dim:'Habits of Mind',word:'Describes',explanation:'The Beginner Learner knows what good learning habits look like — they can talk about them, maybe even explain them to someone else. But they don\'t actually use them. There is a gap between knowing and doing.',chars:['Can name strategies like active recall or spaced repetition','Talks about good habits without practising them','Feels like knowing about a strategy is the same as using it','Doesn\'t apply strategies when studying alone','May have tried a strategy once and given up quickly'],improve:'Pick ONE habit you can already describe and use it this week. Not for every subject, not every day — just once. Doing it once breaks the wall between knowing and doing.'},
+    'non-habits':{learner:'Non-Learner',dim:'Habits of Mind',word:'Ignorant',explanation:'The Non-Learner has no awareness of habits of mind or learning strategies. They\'ve never thought about how they learn — they just try to get through tasks. This isn\'t a character flaw; nobody has shown them yet.',chars:['Has no deliberate strategy for learning','Tries to learn by re-reading or hoping things will stick','Doesn\'t think about how they think','Unaware that learning is a skill that can be improved','Often frustrated that studying doesn\'t seem to work'],improve:'Learn the name of ONE learning strategy today. Try active recall: close your notes and write down everything you remember about today\'s lesson from memory. That is a habit of mind.'},
+    'agile-mistakes':{learner:'Agile Learner',dim:'Mistakes',word:'Designs',explanation:'The Agile Learner deliberately creates situations where they are likely to make mistakes — because that is where the fastest learning happens. They treat mistakes as data in a personal experiment, not as evidence of failure.',chars:['Attempts problems they are not yet ready for','Tests themselves before they feel prepared','Sees errors as the point, not the problem','Analyses patterns in mistakes to guide future study','Shares their mistakes openly with others to learn faster'],mastery:'Keep designing experiments that push you into uncomfortable territory. Your mistakes are your most valuable learning resource — the more strategically you generate them, the faster you grow.'},
+    'independent-mistakes':{learner:'Independent Learner',dim:'Mistakes',word:'Uses',explanation:'The Independent Learner actively uses their mistakes as learning material. When they get something wrong, they dig into why — they analyse the error, correct their understanding, and adjust their approach so it doesn\'t happen again.',chars:['Reviews wrong answers and works out exactly why they were wrong','Keeps notes on patterns in their mistakes','Asks "what does this mistake tell me about my understanding?"','Adjusts study approach based on error analysis','Sees a returned test as a learning tool, not just a grade'],improve:'Start testing yourself BEFORE you feel ready — create situations where mistakes are likely. Try a past exam question before finishing your revision, then use the mistakes to guide your next session.'},
+    'directed-mistakes':{learner:'Directed Learner',dim:'Mistakes',word:'Corrects',explanation:'The Directed Learner will fix their mistakes — but only when someone else identifies them. When a teacher marks an error, they\'ll act on it. But they don\'t proactively hunt for mistakes themselves.',chars:['Makes corrections when told to','Fixes identified errors in marked assignments','Doesn\'t look for their own mistakes before handing in work','Treats marked work as done once corrections are made','Fixes mistakes without investigating why they happened'],improve:'Before your next assignment is due, check your own work and find three potential errors — before a teacher sees it. Then ask yourself WHY you made each one.'},
+    'performance-mistakes':{learner:'Performance Learner',dim:'Mistakes',word:'Avoids',explanation:'The Performance Learner actively avoids looking at their mistakes because errors threaten their image as someone who performs well. Getting something wrong feels like a verdict on their ability, not useful information about their learning.',chars:['Doesn\'t look at marked tests or assignments after getting them back','Focuses only on the grade, ignoring the feedback','Rationalises mistakes: "the question was badly worded", "I knew it really"','Avoids revisiting content they struggled with','Feels shame or defensiveness around errors'],improve:'The next time you get work back, open to the first red mark or comment and read it. Just one. You don\'t have to love it — just read it. That\'s enough to start.'},
+    'beginner-mistakes':{learner:'Beginner Learner',dim:'Mistakes',word:'Recognises',explanation:'The Beginner Learner can see that a mistake happened — they know something went wrong — but they don\'t do anything about it. Recognition without action doesn\'t improve understanding.',chars:['Notices when they get something wrong','May say "I know I got that wrong" but moves on','Doesn\'t investigate why the mistake happened','Doesn\'t change how they study because of mistakes','Same errors reappear on repeated assessments'],improve:'Every time you spot a mistake, write one sentence: what went wrong and what the correct answer actually is. Even this tiny step starts to close the gap between recognising and using mistakes.'},
+    'non-mistakes':{learner:'Non-Learner',dim:'Mistakes',word:'Ignores',explanation:'The Non-Learner completely disregards their mistakes — they don\'t notice them, don\'t care about them, or have decided they\'re not worth the effort. The same errors repeat because nothing ever changes.',chars:['Doesn\'t look at wrong answers','Makes the same mistakes repeatedly','Has no system for catching or fixing errors','May not even register that an error was made','Treats incorrect answers as finished, not as questions to investigate'],improve:'After your next test or homework, find just ONE question you got wrong. Write down what the correct answer is. That\'s the whole task — one question, one correction. Start there.'},
+    'agile-feedback':{learner:'Agile Learner',dim:'Feedback',word:'Tailors',explanation:'The Agile Learner doesn\'t just receive feedback — they actively shape it. They tell teachers and mentors what kind of feedback they need, seek it from multiple sources, and use it strategically to target exactly the areas they want to grow.',chars:['Asks specific questions: "what\'s weak about this argument?"','Seeks feedback from multiple people with different perspectives','Tells teachers what kind of feedback would be most useful','Compares and synthesises feedback from different sources','Uses feedback proactively to plan their next learning steps'],mastery:'You are driving your own feedback loop. Keep asking precise, targeted questions — the more specific your request, the more powerful the feedback you\'ll receive.'},
+    'independent-feedback':{learner:'Independent Learner',dim:'Feedback',word:'Requests',explanation:'The Independent Learner proactively asks for feedback rather than waiting for it to arrive. They seek it out because they want to improve — not because a teacher told them to.',chars:['Approaches teachers or peers to ask for feedback unprompted','Asks "what should I improve?" before being prompted','Seeks feedback on work in progress, not just finished products','Welcomes honest critique as useful information','Follows up on previous feedback to show they acted on it'],improve:'Instead of asking "what should I improve?", try: "What is the single most important thing I need to work on, and what specifically should I do about it?" The more targeted, the more powerful.'},
+    'directed-feedback':{learner:'Directed Learner',dim:'Feedback',word:'Responds',explanation:'The Directed Learner acts on feedback when it is given to them. If a teacher comments on their work, they\'ll make the changes. But they don\'t go looking for feedback — they wait for it to come to them.',chars:['Makes changes suggested by teachers','Takes corrections and applies them','Doesn\'t ignore written feedback','Waits to receive feedback rather than requesting it','Misses opportunities to get feedback earlier in the process'],improve:'Before your next assignment is due, ask your teacher or a peer: "Can you give me feedback on this before I hand it in?" Getting feedback before submission is far more powerful than waiting for a mark.'},
+    'performance-feedback':{learner:'Performance Learner',dim:'Feedback',word:'Selects',explanation:'The Performance Learner filters feedback — keeping what confirms they\'re doing well and discarding what challenges them. They choose feedback that feels safe, not feedback that would actually push them to grow.',chars:['Focuses on positive comments and ignores critical ones','Dismisses feedback that challenges their self-image','Prefers vague praise over specific critique','Disagrees with or argues against feedback they don\'t want to hear','Seeks reassurance rather than honest, useful assessment'],improve:'Next time you receive feedback, deliberately find the most challenging comment — the hardest one to read — and act on just that one. That\'s where your real growth is hiding.'},
+    'beginner-feedback':{learner:'Beginner Learner',dim:'Feedback',word:'Acknowledges',explanation:'The Beginner Learner hears feedback and nods along — but then does nothing differently. They acknowledge that feedback exists without it changing anything about how they work or study.',chars:['Listens when feedback is given','Says "okay" or "thanks" but doesn\'t act','Doesn\'t record or remember the feedback they\'ve received','Continues in exactly the same way after receiving feedback','Gets identical comments on their work over and over again'],improve:'After the next piece of feedback you receive, write down ONE specific action you will take because of it. Not a vague intention — a concrete action. "I will start my introduction with a clear argument" beats "I\'ll try to improve."'},
+    'non-feedback':{learner:'Non-Learner',dim:'Feedback',word:'Disregards',explanation:'The Non-Learner completely ignores feedback from any source. They may dismiss it, argue against it, or simply not read it. Feedback has no impact on how they learn or work.',chars:['Doesn\'t read teacher comments on returned work','Argues with or dismisses feedback','Returns the same errors on repeated assignments','Has stopped expecting feedback to be useful','May have had painful feedback experiences that led them to shut down'],improve:'Read the next piece of written feedback you receive, from start to finish, without arguing with it in your head. Just read it and try to hear it. You don\'t have to agree — just let it in.'},
+    'agile-time':{learner:'Agile Learner',dim:'Time & Energy',word:'Growing',explanation:'The Agile Learner invests their time and energy in activities that actually grow their capacity to learn. They prioritise depth over surface coverage, and they choose how to spend study time based on what will help them improve — not what\'s easiest or most impressive.',chars:['Spends time on what\'s hardest, not what\'s most comfortable','Chooses learning activities based on growth, not appearance','Reflects on whether their time investment is producing real learning','Willing to spend longer on something until they genuinely understand it','Energised by progress, not just by completion'],mastery:'Your time and energy are invested in real growth — that\'s the highest level of learnership. Keep asking: "Is this activity making me a better learner, or just making me look like one?"'},
+    'independent-time':{learner:'Independent Learner',dim:'Time & Energy',word:'Striving',explanation:'The Independent Learner consistently pushes beyond where they currently are. They set stretch goals, put in effort beyond the minimum, and measure themselves against their own improvement — not just against other people.',chars:['Sets goals beyond what is required','Puts in genuine effort on difficult tasks','Measures progress against past performance, not peers','Willing to invest extra time in areas of weakness','Doesn\'t settle when they reach "good enough"'],improve:'Identify one area where you\'ve been striving hard but in the same direction for a while. Ask: "Am I getting better, or just busier?" Then redesign how you invest your time so it produces new growth.'},
+    'directed-time':{learner:'Directed Learner',dim:'Time & Energy',word:'Producing',explanation:'The Directed Learner spends time completing tasks and producing outputs. They\'re busy and doing work — but the focus is on finishing and handing in, rather than genuinely learning and improving through the process.',chars:['Completes tasks on time','Focused on outputs: assignments, drafts, finished work','Busy, but not always learning from what they\'re doing','Satisfaction comes from completing, not from understanding','Works hard but measures success by how much they did, not what they learned'],improve:'After finishing your next task, spend 5 minutes asking: "What did I actually learn from doing this?" and "What would I do differently if I started again?" Producers who reflect start to become strivers.'},
+    'performance-time':{learner:'Performance Learner',dim:'Time & Energy',word:'Performing',explanation:'The Performance Learner invests their time and energy into performing — looking capable, achieving grades, and comparing well against peers. They work hard, but the goal is the performance, not the learning underneath it.',chars:['Highly focused on marks, rankings, and results','Invests time in what will improve grades, not understanding','Studies to perform on tests, not to genuinely comprehend','Compares their effort and results to classmates','Satisfaction comes from beating others or hitting targets, not personal growth'],improve:'Set one study goal this week that is completely about learning — not about a test, mark, or grade. For example: "I want to understand why this concept works, not just remember the steps." Notice how it feels.'},
+    'beginner-time':{learner:'Beginner Learner',dim:'Time & Energy',word:'Doing',explanation:'The Beginner Learner goes through the motions. They turn up, they do something — but their energy investment is minimal. They\'re present without being engaged, completing without really trying.',chars:['Does the minimum amount of work required','Disengaged but not fully refusing','Present in class but mentally elsewhere','No sense of purpose or goal in their study time','Energy goes toward getting through, not getting better'],improve:'In your next class or study session, choose one specific thing you want to understand by the end — not finish, but understand. Giving your time a purpose changes how much you get from it.'},
+    'non-time':{learner:'Non-Learner',dim:'Time & Energy',word:'Wastes',explanation:'The Non-Learner actively squanders the time available for learning. Whether through distraction, disruption, avoidance, or simply doing something else — learning time passes and nothing is built.',chars:['Off-task during class and study time','Distracts themselves or others around them','Phone, daydreaming, or side conversations replace learning','Has no strategy for using learning time productively','Finishes a study session having gained nothing from it'],improve:'Commit to 10 genuine minutes. Set a timer, put the phone away, and try. Ten minutes of real focus beats two hours of going through the motions — and once you feel what focused time is like, you can build from there.'},
+  };
+
+  function openModal(id) {
+    const d = MODAL_DATA[id];
+    if (!d) return;
+    document.getElementById('modal-learner').textContent = d.learner;
+    document.getElementById('modal-dim').textContent     = d.dim;
+    document.getElementById('modal-word').textContent    = d.word;
+    document.getElementById('modal-explanation').textContent = d.explanation;
+    const ul = document.getElementById('modal-chars');
+    ul.innerHTML = d.chars.map(c=>`<li>${c}</li>`).join('');
+    const label  = document.getElementById('modal-action-label');
+    const action = document.getElementById('modal-action');
+    if (d.mastery) {
+      label.textContent = 'Mastery';
+      action.innerHTML  = `<div class="modal-mastery"><strong>You're at the top</strong>${d.mastery}</div>`;
+    } else {
+      label.textContent = 'How to move up';
+      action.innerHTML  = `<div class="modal-improve"><strong>Next step</strong>${d.improve}</div>`;
+    }
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleBackdropClick(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+    document.getElementById('page-'+id).classList.add('active');
+    document.getElementById('btn-'+id).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+    if (id==='reflection') initReflection();
+  }
+
+  function toggleCheck(item) {
+    const cb = item.querySelector('input[type="checkbox"]');
+    if (cb) item.classList.toggle('done', cb.checked);
+  }
+</script>
+</body>
+</html>
