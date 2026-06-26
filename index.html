@@ -720,7 +720,7 @@
       <div class="hero-card" onclick="showPage('ceilings')"><span class="icon">🧱</span><span>Learning Ceilings</span></div>
       <div class="hero-card" onclick="showPage('learn')"><span class="icon">🧠</span><span>Ways to Learn</span></div>
       <div class="hero-card" onclick="showPage('study')"><span class="icon">📚</span><span>Ways to Study</span></div>
-      <div class="hero-card" onclick="showPage('practical')"><span class="icon">⚡</span><span>Practical Ideas</span></div>
+      <div class="hero-card" onclick="showPage('practical')"><span class="icon">⚡</span><span>Let's Begin</span></div>
     </div>
   </div>
   <div class="content">
@@ -744,6 +744,31 @@
     <div class="highlight"><h3>Remember This</h3><p>You don't need to do everything at once. Pick <strong>one strategy</strong> from this site, use it consistently for two weeks, and notice the difference. Then add another. Learning how to learn is itself a skill that builds over time.</p></div>
 
     <p class="page-subtitle" style="margin-top:32px;">Pick the sentence that sounds most like you and we'll point you in the right direction.</p>
+
+    <div class="checklist">
+      <h3>Start Here: Your Challenges</h3>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>After your next class, close your notes and write down everything you can remember, without looking. Then check what you missed.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Pick one topic and explain it out loud to yourself as if you're teaching it to a younger sibling. Notice where you get stuck.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Try the Pomodoro technique for your next homework session: 25 min on, 5 min off. Time yourself and see how it feels.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Create a mind map for one of your subjects. Put the main topic in the middle and branch out with everything you know.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Study in a different location than usual and notice how your focus changes.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Find 5 past exam questions for a subject you have a test in. Try them without looking at your notes first.</label>
+      </label>
+      <label class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" /><label>Go to sleep at a regular time for three nights in a row and notice if your focus improves during class.</label>
+      </label>
+    </div>
 
     <div class="start-grid">
 
@@ -810,11 +835,6 @@
     <h2 class="h2-lg">Try These Right Now</h2>
     <div class="card-grid" id="cards-practical"></div>
 
-    <hr class="divider" />
-    <p class="section-label">Your Environment Matters</p>
-    <h2 class="h2-section">Setting up your study space</h2>
-    <p class="lship-intro">Where you study has a measurable effect on how well you focus, how long you last, and how much you remember. These are the things worth getting right before you start.</p>
-    <div class="card-grid" id="cards-start-space"></div>
   </div>
 </section>
 
@@ -1114,32 +1134,13 @@
 <section id="page-practical" class="page">
   <div class="content">
     <p class="section-label">Start Today</p>
-    <h1 class="page-title">Practical Ideas</h1>
+    <h1 class="page-title">Let's Begin</h1>
     <p class="page-subtitle">Tick off what you'll try this week. Small changes, big results.</p>
-    <div class="checklist">
-      <h3>Start Here: Your Challenges</h3>
-      <label class="check-item" onclick="toggleCheck(this)">
-        <input type="checkbox" /><label>After your next class, close your notes and write down everything you can remember, without looking. Then check what you missed.</label>
-      </label>
-      <label class="check-item" onclick="toggleCheck(this)">
-        <input type="checkbox" /><label>Pick one topic and explain it out loud to yourself as if you're teaching it to a younger sibling. Notice where you get stuck.</label>
-      </label>
-      <label class="check-item" onclick="toggleCheck(this)">
-        <input type="checkbox" /><label>Try the Pomodoro technique for your next homework session: 25 min on, 5 min off. Time yourself and see how it feels.</label>
-      </label>
-      <label class="check-item" onclick="toggleCheck(this)">
-        <input type="checkbox" /><label>Create a mind map for one of your subjects. Put the main topic in the middle and branch out with everything you know.</label>
-      </label>
-      <label class="check-item" onclick="toggleCheck(this)">
-        <input type="checkbox" /><label>Study in a different location than usual and notice how your focus changes.</label>
-      </label>
-      <label class="check-item" onclick="toggleCheck(this)">
-        <input type="checkbox" /><label>Find 5 past exam questions for a subject you have a test in. Try them without looking at your notes first.</label>
-      </label>
-      <label class="check-item" onclick="toggleCheck(this)">
-        <input type="checkbox" /><label>Go to sleep at a regular time for three nights in a row and notice if your focus improves during class.</label>
-      </label>
-    </div>
+    <hr class="divider" />
+    <p class="section-label">Your Environment Matters</p>
+    <h2 class="h2-section">Setting up your study space</h2>
+    <p class="lship-intro">Where you study has a measurable effect on how well you focus, how long you last, and how much you remember. These are the things worth getting right before you start.</p>
+    <div class="card-grid" id="cards-start-space"></div>
     <div class="quote"><p>"The more that you read, the more things you will know. The more that you learn, the more places you'll go."</p><cite>— Dr. Seuss</cite></div>
   </div>
 </section>
