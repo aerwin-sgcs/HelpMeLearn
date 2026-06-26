@@ -634,6 +634,7 @@
       <li><button onclick="showPage('home')"        id="btn-home"        class="active">Home</button></li>
       <li><button onclick="showPage('ceilings')"    id="btn-ceilings">Learning Ceilings</button></li>
       <li><button onclick="showPage('learn')"       id="btn-learn">Ways to Learn</button></li>
+      <li><button onclick="showPage('try')"         id="btn-try">Try It Now</button></li>
       <li><button onclick="showPage('study')"       id="btn-study">Ways to Study</button></li>
       <li><button onclick="showPage('practical')"   id="btn-practical">Let's Begin</button></li>
       <li><button onclick="showPage('learnership')" id="btn-learnership">Learnership</button></li>
@@ -678,10 +679,13 @@
     <p class="section-label">Understanding the Block</p>
     <h1 class="page-title">Learning Ceilings</h1>
     <p class="page-subtitle">Ever felt like you've hit a wall? There's a reason, and there's a way through.</p>
-    <div style="max-width:720px;margin:0 auto 36px;line-height:1.75;font-size:1.05rem;color:var(--dark);">
-      <p style="margin-bottom:16px;">A learning ceiling is the point where progress seems to stop — no matter how hard you try, you can't seem to get any better. It happens to everyone, and it happens at different times. A Year 8 student might suddenly find Maths or English stops making sense. A Year 10 student who has always been a strong reader might hit a wall with analysing texts for the first time. A gap-year student learning a new language might find the early lessons easy but then feel completely stuck. The ceiling is not a sign that you've reached your limit — it's a sign that your current approach has reached its limit.</p>
-      <p>Breaking through a ceiling matters because most of the interesting, rewarding learning happens just beyond it. The students who push through are not necessarily smarter — they have simply learned that ceilings are temporary, and that the right strategy can get them moving again. That is exactly what this page is about.</p>
-    </div>
+    <ul style="max-width:720px;margin:0 auto 36px;line-height:1.75;font-size:1.05rem;color:var(--dark);padding-left:1.4em;">
+      <li style="margin-bottom:10px;">A learning ceiling is when progress stops, no matter how hard you try.</li>
+      <li style="margin-bottom:10px;">It happens to everyone, at different times and in different subjects.</li>
+      <li style="margin-bottom:10px;">It is not a sign you've reached your limit — it's a sign your current approach has reached its limit.</li>
+      <li style="margin-bottom:10px;">The most interesting and rewarding learning happens just beyond the ceiling.</li>
+      <li>The right strategy can get you moving again — that's what this page is about.</li>
+    </ul>
     <div class="ceiling-visual">
       <div class="ceiling-label">THE CEILING</div>
       <p>A learning ceiling is the invisible barrier where progress seems to stop. You study, you practise, but nothing improves. Sound familiar? You're not alone, and it's not your fault.</p>
@@ -932,6 +936,34 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TRY IT NOW                                                       -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section id="page-try" class="page">
+  <div class="content">
+    <p class="section-label">Get Started</p>
+    <h1 class="page-title">Try It Now</h1>
+    <p class="page-subtitle">Pick 3 strategies to try today. Do them — don't just read about them.</p>
+
+    <div id="try-counter" style="background:var(--dark);color:var(--white);border-radius:16px;padding:18px 24px;margin-bottom:28px;font-size:1rem;font-weight:600;line-height:1.5;">
+      <span id="try-counter-text">Choose 3 strategies below — tap to select.</span>
+    </div>
+
+    <div id="try-picker">
+      <!-- Populated by JS -->
+    </div>
+
+    <div id="try-activities" style="display:none;margin-top:40px;">
+      <hr class="divider" />
+      <p class="section-label">Your Challenges</p>
+      <h2 style="font-size:1.5rem;font-weight:900;color:var(--dark);margin-bottom:8px;">Your 3 to try</h2>
+      <p style="font-size:1rem;color:#555;margin-bottom:28px;">Do each one now. You only need paper and a pen.</p>
+      <div id="try-cards" class="card-grid"></div>
+      <button onclick="tryReset()" style="margin-top:32px;background:none;border:2px solid var(--steel-blue);color:var(--steel-blue);padding:12px 28px;border-radius:30px;font-size:0.95rem;font-weight:800;cursor:pointer;">↩ Start fresh — pick 3 new strategies</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- WAYS TO STUDY                                                   -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <section id="page-study" class="page">
@@ -941,7 +973,7 @@
     <p class="page-subtitle">Where, when, and how you study changes everything. Try these approaches.</p>
 
     <!-- Category nav -->
-    <div style="display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 36px;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:28px 0 36px;">
       <button onclick="document.getElementById('study-strategies').scrollIntoView({behavior:'smooth'})" style="background:var(--dark);color:var(--white);border:none;padding:12px 22px;border-radius:30px;font-size:0.95rem;font-weight:800;cursor:pointer;transition:filter 0.15s;" onmouseover="this.style.filter='brightness(1.2)'" onmouseout="this.style.filter='brightness(1)'">🔑 Secret Weapons</button>
       <button onclick="document.getElementById('study-space').scrollIntoView({behavior:'smooth'})" style="background:var(--steel-blue);color:var(--white);border:none;padding:12px 22px;border-radius:30px;font-size:0.95rem;font-weight:800;cursor:pointer;transition:filter 0.15s;" onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='brightness(1)'">🏠 Your Study Space</button>
       <button onclick="document.getElementById('study-physical').scrollIntoView({behavior:'smooth'})" style="background:var(--teal);color:var(--white);border:none;padding:12px 22px;border-radius:30px;font-size:0.95rem;font-weight:800;cursor:pointer;transition:filter 0.15s;" onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='brightness(1)'">🤸 Physical & Movement</button>
@@ -1153,7 +1185,11 @@
     <div class="reflect-summary">
       <div class="reflect-stat s-tick"><span id="tick-count">0</span><label>Worked for me</label></div>
       <div class="reflect-stat s-cross"><span id="cross-count">0</span><label>Not for me</label></div>
-      <div class="reflect-stat s-yet"><span id="yet-count">53</span><label>Yet to try</label></div>
+      <div class="reflect-stat s-yet"><span id="yet-count">56</span><label>Yet to try</label></div>
+    </div>
+    <div id="reflect-progress" style="display:none;border-radius:16px;padding:18px 24px;margin:20px 0 4px;font-size:1rem;line-height:1.65;"></div>
+    <div id="learnership-nudge" style="display:none;background:var(--teal);color:var(--white);border-radius:16px;padding:20px 24px;margin:20px 0 4px;font-size:1rem;line-height:1.65;">
+      🎯 <strong>You've ticked off 10 or more Ways to Learn strategies.</strong> That's a strong foundation — visit <a onclick="showPage('learnership')" style="color:var(--yellow);font-weight:800;text-decoration:underline;cursor:pointer;">Learnership</a> to discover what kind of learner you are becoming.
     </div>
     <p class="section-label">My Learner Level</p>
     <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;">Where are you, and where do you want to be?</h2>
@@ -1380,11 +1416,53 @@
   }
 
   function updateCounts() {
-    let ticks=0, crosses=0;
-    METHODS.forEach(m => { const s=getMethodState(m.id); if(s==='tick') ticks++; if(s==='cross') crosses++; });
+    let ticks=0, crosses=0, wtlTicks=0;
+    METHODS.forEach(m => {
+      const s=getMethodState(m.id);
+      if(s==='tick') { ticks++; if(m.cat==='Ways to Learn') wtlTicks++; }
+      if(s==='cross') crosses++;
+    });
     document.getElementById('tick-count').textContent  = ticks;
     document.getElementById('cross-count').textContent = crosses;
     document.getElementById('yet-count').textContent   = METHODS.length - ticks - crosses;
+
+    // Learnership nudge
+    const nudge = document.getElementById('learnership-nudge');
+    if (nudge) nudge.style.display = wtlTicks >= 10 ? 'block' : 'none';
+
+    // Progress celebration
+    updateProgress(ticks);
+  }
+
+  function updateProgress(ticks) {
+    const el = document.getElementById('reflect-progress');
+    if (!el) return;
+    if (ticks === 0) { el.style.display = 'none'; return; }
+
+    const prev = parseInt(localStorage.getItem('reflect_prev_count') || '0');
+    const diff = ticks - prev;
+    let msgs = [];
+
+    // Benchmark message
+    msgs.push(`You've tried <strong>${ticks}</strong> ${ticks===1?'strategy':'strategies'} — most students try 3 or fewer.`);
+
+    // Own progress vs last visit
+    if (prev > 0 && diff > 0) {
+      msgs.push(`Last visit you'd tried <strong>${prev}</strong> — now <strong>${ticks}</strong>. That's <strong>${diff}</strong> more. Keep going.`);
+    } else if (prev > 0 && diff === 0) {
+      msgs.push(`Same count as your last visit — try something new today.`);
+    }
+
+    // Milestones
+    if (ticks >= 20) msgs.push('🏆 20 strategies tried — you\'re in rare company.');
+    else if (ticks >= 15) msgs.push('⭐ 15 strategies tried — genuinely impressive.');
+    else if (ticks >= 10) msgs.push('🔥 10 strategies tried — you\'re well on your way.');
+    else if (ticks >= 5)  msgs.push('✅ 5 strategies tried — solid start.');
+
+    el.style.display = 'block';
+    el.style.background = 'var(--dark)';
+    el.style.color = 'var(--white)';
+    el.innerHTML = msgs.map(m=>`<p style="margin:4px 0;">${m}</p>`).join('');
   }
 
   function buildMethodTracker() {
@@ -1447,6 +1525,14 @@
     document.getElementById('slider-target').value  = tgt;
     updateSliders();
     buildMethodTracker();
+
+    // Save this session's tick count as "last visit" for the next session
+    if (!sessionStorage.getItem('reflect_session_started')) {
+      sessionStorage.setItem('reflect_session_started', '1');
+      let currentTicks = 0;
+      METHODS.forEach(m => { if (getMethodState(m.id)==='tick') currentTicks++; });
+      localStorage.setItem('reflect_prev_count', currentTicks);
+    }
   }
 
   /* ── MODAL DATA ──────────────────────────────────────────────── */
@@ -1522,6 +1608,133 @@
 
   document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
 
+  /* ── TRY IT NOW ─────────────────────────────────────────────── */
+  const TRY_DATA = {
+    sections: [
+      {
+        label: '⚡ Active Learning', colour: 'var(--yellow)', textColour: 'var(--dark)',
+        items: [
+          { id:'one-min',       label:'One-Minute Summary',         prompt:'Set a timer for 60 seconds. Write down everything you remember about something you studied today. Go — no notes allowed.' },
+          { id:'brain-dump',    label:'Retrieval Brain Dump',       prompt:'Close your notes. Write everything you know about one topic from memory. Don\'t check anything until you\'re completely done.' },
+          { id:'draw-it',       label:'Draw It',                    prompt:'Pick one concept from any subject. Draw it as a labelled diagram, comic panel, or sketch right now. No artistic skill needed.' },
+          { id:'sketch-notes',  label:'Sketch Notes',               prompt:'On your next page of notes today, replace at least 5 words with drawings, symbols, or doodles. See if it helps you remember more.' },
+          { id:'q-storm',       label:'Question Storming',          prompt:'Set a 2-minute timer. Write every question you have about a topic you\'re studying right now. Push for 10 questions.' },
+          { id:'rank-justify',  label:'Rank and Justify',           prompt:'Write 5 things you learned this week. Rank them 1–5 by how important you think they are. Write one sentence defending your number 1.' },
+          { id:'teach-someone', label:'Teach Someone Else',         prompt:'Find someone nearby — a family member, friend, or pet. Explain one thing you\'re learning in 2 minutes flat. Notice where you get stuck.' },
+          { id:'feynman',       label:'The Feynman Technique',      prompt:'Write a topic at the top of a blank page. Now explain it as if the reader is 10 years old. No notes. Keep going until it makes sense simply.' }
+        ]
+      },
+      {
+        label: '🧠 Brain Science', colour: 'var(--teal)', textColour: 'var(--white)',
+        items: [
+          { id:'flashcard',     label:'Flashcard Recall',           prompt:'Make 5 flashcards for something you\'re studying — question on one side, answer on the other. Test yourself immediately. Check what you missed.' },
+          { id:'story',         label:'The Story Method',           prompt:'Turn 3 facts you need to remember into a short story with a beginning, middle and end. Write it down or say it out loud twice.' },
+          { id:'analogies',     label:'Create Analogies',           prompt:'Pick something difficult you\'re studying. Complete this sentence 3 times in different ways: "This is like _____ because _____."' },
+          { id:'dual-coding',   label:'Dual Coding',                prompt:'Take your last page of written notes and redraw them as a diagram, flowchart, or timeline. No full sentences — visuals only.' },
+          { id:'predictions',   label:'Make Predictions',           prompt:'Before reading the next page or watching the next video in any subject, write down 3 things you predict it will cover. Then check how you did.' },
+          { id:'mem-palace',    label:'Memory Palaces',             prompt:'Choose 5 things to remember. Mentally walk through your home and place one item at: the front door, the hallway, the kitchen, the lounge, your bedroom.' }
+        ]
+      },
+      {
+        label: '💾 Memory', colour: 'var(--steel-blue)', textColour: 'var(--white)',
+        items: [
+          { id:'colour-code',   label:'Colour Coding',              prompt:'Go through your last set of notes with 3 colours: one for key terms, one for examples, one for anything you don\'t fully understand yet.' },
+          { id:'mind-map',      label:'Mind Mapping',               prompt:'Put a topic in the middle of a blank page and circle it. Branch out with everything you know. Use colour. Don\'t stop until the page is full.' },
+          { id:'comp-contrast', label:'Compare and Contrast',       prompt:'Draw a table with 2 columns. Pick two related things you\'re studying. Fill in at least 5 similarities and 5 differences.' },
+          { id:'acronyms',      label:'Acronyms and Mnemonics',     prompt:'Take a list of 5 or more things you need to remember. Use the first letter of each to invent a word or a silly sentence. The sillier, the better.' }
+        ]
+      },
+      {
+        label: '🎨 Creativity', colour: 'var(--light-teal)', textColour: 'var(--dark)',
+        items: [
+          { id:'music',         label:'Set It to Music',            prompt:'Pick 5 facts you need to remember. Set them to the tune of any song you know — anything works. Sing it out loud at least twice.' },
+          { id:'gestures',      label:'Use Gestures and Movement',  prompt:'Choose 5 key terms from something you\'re studying. Invent a hand gesture for each one. Practise until you can do all 5 without thinking.' },
+          { id:'remix',         label:'Remix the Learning',         prompt:'Take notes from one topic and transform them into something completely different — a comic strip, top 10 list, fake recipe, or news headline.' },
+          { id:'become-concept',label:'Become the Concept',         prompt:'Choose a process or idea you\'re studying. Stand up and act it out — be the thing. Narrate out loud what\'s happening as you move.' }
+        ]
+      }
+    ]
+  };
+
+  let tryPicks = JSON.parse(localStorage.getItem('try_picks') || '[]');
+
+  function initTry() {
+    const picker = document.getElementById('try-picker');
+    picker.innerHTML = '';
+    TRY_DATA.sections.forEach(section => {
+      const secDiv = document.createElement('div');
+      secDiv.style.cssText = 'margin-bottom:32px;';
+      secDiv.innerHTML = `<div style="display:inline-block;background:${section.colour};color:${section.textColour};font-size:0.78rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:14px;">${section.label}</div>`;
+      const grid = document.createElement('div');
+      grid.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;';
+      section.items.forEach(item => {
+        const btn = document.createElement('button');
+        const picked = tryPicks.includes(item.id);
+        btn.id = 'try-btn-' + item.id;
+        btn.textContent = item.label;
+        btn.style.cssText = `padding:10px 18px;border-radius:24px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.15s;border:2px solid ${section.colour};background:${picked ? section.colour : 'transparent'};color:${picked ? section.textColour : 'var(--dark)'};`;
+        btn.onclick = () => tryToggle(item.id);
+        grid.appendChild(btn);
+      });
+      secDiv.appendChild(grid);
+      picker.appendChild(secDiv);
+    });
+    renderTryActivities();
+    updateTryCounter();
+  }
+
+  function tryToggle(id) {
+    if (tryPicks.includes(id)) {
+      tryPicks = tryPicks.filter(p => p !== id);
+    } else {
+      if (tryPicks.length >= 3) {
+        updateTryCounter(true);
+        return;
+      }
+      tryPicks.push(id);
+    }
+    localStorage.setItem('try_picks', JSON.stringify(tryPicks));
+    initTry();
+  }
+
+  function tryReset() {
+    tryPicks = [];
+    localStorage.removeItem('try_picks');
+    initTry();
+  }
+
+  function updateTryCounter(blocked) {
+    const el = document.getElementById('try-counter-text');
+    const remaining = 3 - tryPicks.length;
+    if (blocked) {
+      el.innerHTML = 'You\'ve chosen 3 — tap one to deselect it before choosing another.';
+    } else if (tryPicks.length === 0) {
+      el.innerHTML = 'Choose 3 strategies below — tap to select.';
+    } else if (tryPicks.length === 3) {
+      el.innerHTML = '✅ You\'ve chosen your 3 — scroll down to see your challenges.';
+    } else {
+      el.innerHTML = `${tryPicks.length} chosen — pick ${remaining} more.`;
+    }
+  }
+
+  function renderTryActivities() {
+    const wrap = document.getElementById('try-activities');
+    const cardsEl = document.getElementById('try-cards');
+    if (tryPicks.length === 0) { wrap.style.display = 'none'; return; }
+    wrap.style.display = 'block';
+    cardsEl.innerHTML = '';
+    const colours = ['yellow','light-teal','steel'];
+    tryPicks.forEach((id, i) => {
+      let item = null, section = null;
+      TRY_DATA.sections.forEach(s => { const found = s.items.find(x => x.id === id); if (found) { item = found; section = s; } });
+      if (!item) return;
+      const card = document.createElement('div');
+      card.className = 'card ' + colours[i];
+      card.innerHTML = `<div style="font-size:0.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#777;margin-bottom:8px;">${section.label}</div><h3 style="margin-bottom:12px;">${item.label}</h3><p>${item.prompt}</p>`;
+      cardsEl.appendChild(card);
+    });
+  }
+
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
@@ -1529,6 +1742,7 @@
     document.getElementById('btn-'+id).classList.add('active');
     window.scrollTo({top:0,behavior:'smooth'});
     if (id==='reflection') initReflection();
+    if (id==='try') initTry();
   }
 
   function toggleCheck(item) {

@@ -59,7 +59,18 @@ All content lives in **`index.html`** — one file, no build tools, no dependenc
 - `scroll-margin-top: 90px` on each section anchor to clear the fixed nav
 - The Learning Pyramid highlight box and Benjamin Franklin quote at the bottom
 
-### 4. Ways to Study (`study`)
+### 4. Try It Now (`try`)
+- New page added between Ways to Learn and Ways to Study in the nav
+- Students pick **up to 3 strategies** from the full 22-item Ways to Learn list
+- Strategies are grouped by category (Active Learning, Brain Science, Memory, Creativity) with colour-coded selectable buttons
+- Selecting a 4th strategy is blocked with an inline message; tapping a selected strategy deselects it
+- Once 3 are chosen, a "Your 3 to try" section appears below with one activity card per selection — each card contains a short, immediately actionable prompt requiring only paper and a pen
+- A "Start fresh" button resets all selections
+- Selections persist in `localStorage` under key `try_picks` (JSON array of up to 3 strategy IDs)
+- `initTry()` is called from `showPage()` when `id === 'try'`
+- Activity prompts are stored in the `TRY_DATA` object in the script block
+
+### 5. Ways to Study (`study`)
 - **Categorised into 6 sections with scrolling nav buttons at the top:**
   - 🔑 **Secret Weapons** — The Pomodoro Technique, Interleaving, Spaced Repetition, Practice Testing, Elaboration, Dual Coding
   - 🏠 **Your Study Space** — Phone Away, The Music Question, Change Your Location + Before-You-Start Ritual yellow box + 3-step session guide
@@ -70,12 +81,12 @@ All content lives in **`index.html`** — one file, no build tools, no dependenc
 - "The Strongest Combination" yellow box at the bottom
 - Note: section was previously called "Study Strategies" — renamed to "Secret Weapons" as "strategies" is too complex for Grade 6
 
-### 5. Let's Begin (`practical`)
+### 6. Let's Begin (`practical`)
 - Interactive tick-off checklist (7 items) — labelled "Start Here: Your Challenges"
 - 6 quick-win cards
 - Highlight box reminder to pick one strategy and stick with it
 
-### 6. Learnership (`learnership`)
+### 7. Learnership (`learnership`)
 - **James Anderson's** "Learnership: The Skill of Learning" framework
 - Credit and link: www.jamesanderson.com.au/learnership
 - Recreated pill-row table: 6 learner types × 5 dimensions
@@ -83,8 +94,14 @@ All content lives in **`index.html`** — one file, no build tools, no dependenc
 - 6 explanation cards below the table (one per learner type)
 - Key insight callout
 
-### 7. My Reflection (`reflection`)
+### 8. My Reflection (`reflection`)
 - **Summary strip** — live counts of ticked / crossed / yet to try
+- **Progress celebration panel** (`#reflect-progress`) — appears once the student has ticked 1+ strategy:
+  - Benchmark message: "You've tried [n] strategies — most students try 3 or fewer"
+  - Own-progress message: compares current tick count to the count at the start of the previous session ("Last visit you'd tried X — now Y. That's Z more.")
+  - Milestone messages at 5, 10, 15, 20 strategies ticked
+  - Session tracking uses `sessionStorage` key `reflect_session_started`; at the start of each new session, current tick count is saved to `localStorage` key `reflect_prev_count`
+- **Learnership nudge** (`#learnership-nudge`) — teal callout, hidden by default; appears dynamically when the student has ticked ✓ on 10 or more Ways to Learn strategies; contains a link to the Learnership page
 - **Two range sliders** (1 = Non-Learner → 6 = Agile Learner)
 - **Methods tracker** — all 56 methods listed across 6 categories, each with ✓ and ✗ buttons
   - State persists in `localStorage` (key format: `method_<id>`)
