@@ -1,4 +1,4 @@
-# Breaking Through the Ceiling — Handover Document
+# Help Me Learn — Handover Document
 
 ## What This Is
 A single-page web app for students in Grades 6–10 about how to learn effectively.  
@@ -20,6 +20,9 @@ All content lives in **`index.html`** — one file, no build tools, no dependenc
 | Yellow | `#F1C40F` |
 | Teal | `#2A9D8F` |
 | Dark navy (text) | `#1D3557` |
+| Dark green | `#2d5a1b` |
+
+**No gradient backgrounds** — all backgrounds use solid colours only. Gradients were removed for readability (white text was unreadable on pale gradient stops).
 
 ---
 
@@ -39,62 +42,53 @@ All content lives in **`index.html`** — one file, no build tools, no dependenc
 - Highlight box and a quote
 
 ### 2. Learning Ceilings (`ceilings`)
-- What a learning ceiling is, why we hit them (4 cards)
+- **Intro paragraphs at the top of the page** (added 2026-06) explaining what a ceiling is, how it happens at different ages (Year 8, Year 10, gap-year examples), and why breaking through matters
+- Ceiling visual box and "Why we hit ceilings" — 6 cards (includes Cognitive Overload and Lack of Deliberate Practice)
 - **5-step "smash through a ceiling" guide** (Identify, Switch strategy, Embrace struggle, Rest, Get a different perspective)
-- **12 additional ceiling-smashing strategy cards** (numbered 1–12):
-  1. Learn the Opposite Way
-  2. Teach an Imaginary Student
-  3. Increase the Difficulty by 10%
-  4. Switch Representation
-  5. Hunt for Mistakes
-  6. Connect It to Something Else
-  7. Set a Constraint
-  8. Ask Better Questions
-  9. Deliberately Practise Your Weakest Skill
-  10. Reflect Like a Scientist
-  11. Create a Productive Struggle
-  12. Change Your Learning Environment
-- **Bonus Challenge: The Learning Ceiling Ladder** — dark navy panel with an inline SVG ladder illustration. 5 rungs: Notice → Experiment → Struggle → Reflect → Repeat. Closing note about changing approach rather than doing the same thing longer.
+- **12 additional ceiling-smashing strategy cards** (numbered 1–12)
+- **Bonus Challenge: The Learning Ceiling Ladder** — dark navy panel with inline SVG ladder illustration
 - Key Mindset Shift yellow callout
 
 ### 3. Ways to Learn (`learn`)
-- 20 method cards in a grid (see full list below)
-- The Learning Pyramid highlight box
-- Benjamin Franklin quote
+- **Categorised into 4 sections with scrolling nav buttons at the top:**
+  - ⚡ **Active Learning** — One-Minute Summary, Retrieval Brain Dump, Draw It, Sketch Notes, Question Storming, Rank and Justify, Teach Someone Else, The Feynman Technique
+  - 🧠 **Brain Science** — Flashcard Recall, The Story Method, Create Analogies, Dual Coding, Make Predictions, Memory Palaces
+  - 💾 **Memory** — Colour Coding, Mind Mapping, Compare and Contrast Tables, Create Acronyms and Mnemonics
+  - 🎨 **Creativity** — Set It to Music, Use Gestures and Movement, Remix the Learning, Become the Concept
+- Each section has a styled header: coloured icon box + uppercase category label + heading + description paragraph
+- `scroll-margin-top: 90px` on each section anchor to clear the fixed nav
+- The Learning Pyramid highlight box and Benjamin Franklin quote at the bottom
 
 ### 4. Ways to Study (`study`)
-- Original 4 strategies: Pomodoro, Interleaving, Spaced Repetition, Practice Testing
-- Study space tips (3 cards)
-- Before-you-start ritual yellow box
-- 3-step session guide
-- **Physical & Movement** section (10 methods)
-- **Creative & Visual** section (6 methods)
-- **Social & Interactive** section (4 methods)
-- **Unusual Methods** grid (10 ideas)
-- Closing note: "Strongest combination is retrieval practice + movement + teaching someone else"
+- **Categorised into 6 sections with scrolling nav buttons at the top:**
+  - 🔑 **Secret Weapons** — The Pomodoro Technique, Interleaving, Spaced Repetition, Practice Testing, Elaboration, Dual Coding
+  - 🏠 **Your Study Space** — Phone Away, The Music Question, Change Your Location + Before-You-Start Ritual yellow box + 3-step session guide
+  - 🤸 **Physical & Movement** — 10 movement-based methods
+  - 🎨 **Creative & Visual** — 6 methods
+  - 👥 **Social & Interactive** — 4 methods
+  - 💡 **Outside the Box** — 10 unusual methods in unusual-grid layout
+- "The Strongest Combination" yellow box at the bottom
+- Note: section was previously called "Study Strategies" — renamed to "Secret Weapons" as "strategies" is too complex for Grade 6
 
-### 5. Practical Ideas (`practical`)
+### 5. Let's Begin (`practical`)
 - Interactive tick-off checklist (7 items) — labelled "Start Here: Your Challenges"
 - 6 quick-win cards
 - Highlight box reminder to pick one strategy and stick with it
 
-### 6. My Reflection (`reflection`)
-- **Summary strip** — live counts of ticked / crossed / yet to try
-- **Two range sliders** (1 = Non-Learner → 6 = Agile Learner):
-  - "Where I am now" and "Where I want to be"
-  - Dynamic gap message links to Learnership page
-  - Slider state saved to `localStorage`
-- **Methods tracker** — all 53 methods listed across 6 categories, each with ✓ and ✗ buttons
-  - State persists in `localStorage` (key format: `method_<id>`)
-  - Reset button with confirmation prompt
-
-### 7. Learnership (`learnership`)
+### 6. Learnership (`learnership`)
 - **James Anderson's** "Learnership: The Skill of Learning" framework
 - Credit and link: www.jamesanderson.com.au/learnership
 - Recreated pill-row table: 6 learner types × 5 dimensions
 - Every cell and row label is a **clickable button** opening a modal
 - 6 explanation cards below the table (one per learner type)
 - Key insight callout
+
+### 7. My Reflection (`reflection`)
+- **Summary strip** — live counts of ticked / crossed / yet to try
+- **Two range sliders** (1 = Non-Learner → 6 = Agile Learner)
+- **Methods tracker** — all 56 methods listed across 6 categories, each with ✓ and ✗ buttons
+  - State persists in `localStorage` (key format: `method_<id>`)
+  - Reset button with confirmation prompt
 
 ---
 
@@ -112,17 +106,11 @@ All content lives in **`index.html`** — one file, no build tools, no dependenc
 Row colours: dark→light green (Agile→Directed), medium→dark blue (Performance→Non-Learner)  
 Column header colours: green / blue / orange / pink / purple
 
-Each of the 36 entries (30 cells + 6 row labels) opens a modal containing:
-- Learner type badge + dimension badge
-- Plain-English explanation
-- 5 characteristics
-- "How to move up" action step (or "Mastery" note for Agile Learner entries)
-
 ---
 
-## All 53 Methods (used in My Reflection tracker)
+## All 56 Methods (used in My Reflection tracker)
 
-### Ways to Learn (20)
+### Ways to Learn (22)
 1. The Feynman Technique
 2. Mind Mapping
 3. Flashcard Recall
@@ -143,49 +131,53 @@ Each of the 36 entries (30 cells + 6 row labels) opens a modal containing:
 18. Compare and Contrast Tables
 19. Rank and Justify
 20. Make Predictions
+21. Remix the Learning
+22. Become the Concept
 
-### Study Strategies (4)
-21. Pomodoro Technique
-22. Interleaving
-23. Spaced Repetition
-24. Practice Testing
+### Ways to Study (6)
+23. Pomodoro Technique
+24. Interleaving
+25. Spaced Repetition
+26. Practice Testing
+27. Elaboration
+28. Dual Coding
 
 ### Physical & Movement (10)
-25. Walk and Recall
-26. Corners Challenge
-27. Human Timeline
-28. Sticky Note Hunt
-29. Basketball Revision
-30. Throw-and-Answer
-31. Learning Relay
-32. Gesture Coding
-33. Hopscotch Revision
-34. Memory Walk
+29. Walk and Recall
+30. Corners Challenge
+31. Human Timeline
+32. Sticky Note Hunt
+33. Basketball Revision
+34. Throw-and-Answer
+35. Learning Relay
+36. Gesture Coding
+37. Hopscotch Revision
+38. Memory Walk
 
 ### Creative & Visual (5)
-35. Comic Strip Learning
-36. Doodle Notes
-37. Build a Model
-38. Create an Infographic
-39. Colour-Coded Connections
+39. Comic Strip Learning
+40. Doodle Notes
+41. Build a Model
+42. Create an Infographic
+43. Colour-Coded Connections
 
 ### Social & Interactive (4)
-40. Teach a Toy
-41. Quiz Show
-42. Expert Panel
-43. Speed Teaching
+44. Teach a Toy
+45. Quiz Show
+46. Expert Panel
+47. Speed Teaching
 
 ### Unusual Methods (10)
-44. Write notes in chalk outside
-45. Treasure hunt revision
-46. Giant floor mind map
-47. Record a podcast
-48. Study at a whiteboard
-49. "Top 10 Things" lists
-50. Playing card flashcards
-51. Board game revision
-52. Act out processes or events
-53. Create memes
+48. Write notes in chalk outside
+49. Treasure hunt revision
+50. Giant floor mind map
+51. Record a podcast
+52. Study at a whiteboard
+53. "Top 10 Things" lists
+54. Playing card flashcards
+55. Board game revision
+56. Act out processes or events
+57. Create memes
 
 ---
 
@@ -197,19 +189,23 @@ Each of the 36 entries (30 cells + 6 row labels) opens a modal containing:
   - `reflect_current` — current learner slider value (1–6)
   - `reflect_target` — target learner slider value (1–6)
   - `method_<id>` — `'tick'`, `'cross'`, or `''` for each method
+- **Back-to-top button** — fixed, bottom-right corner, `id="back-to-top"`. Hidden (opacity 0) until 300px scroll depth, then fades in. Scrolls to `top: 0` with smooth behaviour. CSS in the stylesheet; JS scroll listener inline in the script block.
+- **Section nav buttons** — Ways to Learn and Ways to Study both have a row of pill-shaped buttons at the top that `scrollIntoView({behavior:'smooth'})` to section anchors. Each anchor has `scroll-margin-top: 90px` to clear the fixed nav bar.
 - **iPad optimised:** min touch targets 44px, no hover-only interactions, horizontal scroll on Learnership table for portrait mode
 - **No external dependencies** — pure HTML/CSS/JS, no frameworks or libraries
 - **SVG ladder** on the Learning Ceilings page is inline (no external image file needed)
+- **Em dashes** — removed site-wide and replaced with commas, semicolons, colons, or parentheses. Three remain intentionally in quote citations (Henry Ford, Benjamin Franklin, Dr. Seuss).
 
 ---
 
 ## Design Decisions Made
 - Single `.html` file — simplest possible deployment, works offline
 - Filename versioning (`indexv1.html`, `indexv2.html`) instead of branch-per-feature
-- Footer text stripped back to just the app name
+- No gradient backgrounds — replaced with solid colours for text readability
 - Nav is full-width column layout (logo centred above buttons) so wrapping always looks intentional
-- "Teach Someone Else" and "Question Storming" appear on Ways to Learn but NOT duplicated in Ways to Study; "Set It to Music" appears once in the tracker
-- Reflection prompts on cards 11 and 12 of the ceiling strategies are styled in italic teal/steel-blue at the bottom of each card
+- "Secret Weapons" used instead of "Study Strategies" for the first Ways to Study section — "strategies" is too complex for Grade 6
+- My Reflection tracker categories mirror page names exactly: "Ways to Learn" and "Ways to Study"
+- Footer reads "Help Me Learn" (app title)
 
 ---
 
