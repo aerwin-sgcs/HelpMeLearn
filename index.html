@@ -52,13 +52,8 @@
 
     .logo span { color: var(--light-teal); }
 
-    .nav-links {
-      display: flex;
-      gap: 6px;
-      list-style: none;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+    .nav-rows  { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .nav-links { display: flex; gap: 6px; list-style: none; justify-content: center; flex-wrap: wrap; }
 
     .nav-links button {
       background: transparent;
@@ -592,11 +587,17 @@
 
     .method-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
 
-    .method-card { background: var(--white); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); border-left: 5px solid var(--light-teal); transition: all 0.2s; }
+    .method-card { background: var(--white); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 0; box-shadow: 0 2px 10px rgba(0,0,0,0.07); border-left: 5px solid var(--light-teal); transition: all 0.2s; }
     .method-card.ticked  { border-left-color: #2d7a2d; background: #f0faf0; }
     .method-card.crossed { border-left-color: #c0392b; background: #fdf0f0; opacity: 0.65; }
 
-    .method-name { font-size: 0.92rem; font-weight: 700; color: var(--dark); line-height: 1.35; flex: 1; }
+    .method-top  { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .method-name { font-size: 0.92rem; font-weight: 700; color: var(--dark); line-height: 1.35; flex: 1; cursor: pointer; }
+    .method-name:hover { color: var(--teal); }
+    .method-hint { font-size: 0.7rem; color: var(--teal); margin-left: 4px; display: inline-block; transition: transform 0.2s; }
+    .method-hint.open { transform: rotate(90deg); }
+    .method-desc { display: none; font-size: 0.86rem; color: #555; line-height: 1.55; padding-top: 8px; margin-top: 8px; border-top: 1px solid #e8e8e8; }
+    .method-desc.open { display: block; }
     .method-card.crossed .method-name { text-decoration: line-through; color: #999; }
 
     .method-btns { display: flex; gap: 6px; flex-shrink: 0; }
@@ -695,17 +696,21 @@
 <nav>
   <div class="nav-inner">
     <div class="logo">Breaking Through <span>the Ceiling</span></div>
-    <ul class="nav-links">
-      <li><button onclick="showPage('home')"        id="btn-home"        class="active">Home</button></li>
-      <li><button onclick="showPage('start')"       id="btn-start">Where Do I Start?</button></li>
-      <li><button onclick="showPage('ceilings')"    id="btn-ceilings">Learning Ceilings</button></li>
-      <li><button onclick="showPage('learn')"       id="btn-learn">Ways to Learn</button></li>
-      <li><button onclick="showPage('study')"       id="btn-study">Ways to Study</button></li>
-      <li><button onclick="showPage('practical')"   id="btn-practical">Study Space</button></li>
-      <li><button onclick="showPage('reflection')"  id="btn-reflection">My Reflection</button></li>
-      <li><button onclick="showPage('try')"         id="btn-try">Try It Now</button></li>
-      <li><button onclick="showPage('learnership')" id="btn-learnership">Learnership</button></li>
-    </ul>
+    <div class="nav-rows">
+      <ul class="nav-links">
+        <li><button onclick="showPage('home')"        id="btn-home"        class="active">Home</button></li>
+        <li><button onclick="showPage('start')"       id="btn-start">Where Do I Start?</button></li>
+        <li><button onclick="showPage('ceilings')"    id="btn-ceilings">Learning Ceilings</button></li>
+        <li><button onclick="showPage('learn')"       id="btn-learn">Ways to Learn</button></li>
+        <li><button onclick="showPage('study')"       id="btn-study">Ways to Study</button></li>
+      </ul>
+      <ul class="nav-links">
+        <li><button onclick="showPage('practical')"   id="btn-practical">Study Space</button></li>
+        <li><button onclick="showPage('try')"         id="btn-try">Try It Now</button></li>
+        <li><button onclick="showPage('reflection')"  id="btn-reflection">My Reflection</button></li>
+        <li><button onclick="showPage('learnership')" id="btn-learnership">Learnership</button></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
@@ -1118,9 +1123,9 @@
     <hr class="divider" />
     <div class="yellow-box"><h3>The Before-You-Start Ritual</h3><p>Take 2 minutes before every study session to: write down exactly what you want to achieve, close all apps except what you need, and take three slow breaths. This primes your brain to focus and tells it "learning mode: ON."</p></div>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Dump your brain first</h4><p>Write down everything on your mind (worries, to-dos, random thoughts) onto paper before studying. This clears your working memory so it's free to learn.</p></div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Start with the hardest thing</h4><p>Your willpower and focus are highest at the start of a session. Tackle the hardest content first, and leave easier review tasks for when energy dips.</p></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>End with a recap</h4><p>Spend the last 5 minutes writing (from memory) what you just learned. No notes. This one habit can double how much you remember the next day.</p></div></div>
+      <div class="step"><div class="ladder-arrow">→</div><div class="step-body"><h4>Dump your brain first</h4><p>Write down everything on your mind (worries, to-dos, random thoughts) onto paper before studying. This clears your working memory so it's free to learn.</p></div></div>
+      <div class="step"><div class="ladder-arrow">→</div><div class="step-body"><h4>Start with the hardest thing</h4><p>Your willpower and focus are highest at the start of a session. Tackle the hardest content first, and leave easier review tasks for when energy dips.</p></div></div>
+      <div class="step"><div class="ladder-arrow">→</div><div class="step-body"><h4>End with a recap</h4><p>Spend the last 5 minutes writing (from memory) what you just learned. No notes. This one habit can double how much you remember the next day.</p></div></div>
     </div>
     <hr class="divider" />
     <p class="section-label">Your Environment Matters</p>
@@ -1180,7 +1185,7 @@
     <hr class="divider" />
     <p class="section-label">My Methods Tracker</p>
     <h2 class="h2-sm-tight">Tick what works. Cross what doesn't.</h2>
-    <p class="tracker-desc">All methods from this app are listed below. ✓ = worked for me or want to try again &nbsp;|&nbsp; ✗ = didn't work or not for me. Your choices are saved automatically.</p>
+    <p class="tracker-desc">All methods from this app are listed below. ✓ = worked for me or want to try again &nbsp;|&nbsp; ✗ = didn't work or not for me. Your choices are saved automatically. <strong>Tap any method name</strong> for a short explanation before you decide.</p>
     <div id="method-tracker"></div>
     <button class="reflect-reset" onclick="resetReflection()">Reset all choices</button>
   </div>
@@ -1449,6 +1454,7 @@
       {v:'yellow',     icon:'✅', h:'Prepare Before You Start',     b:'Have everything ready — notes, water, stationery — before you begin. Every time you get up to find something, you break your concentration and need several minutes to rebuild it.'},
       {v:'light-teal', icon:'🌡️', h:'Temperature and Fresh Air',    b:'A slightly cool room keeps you alert. Stuffy, warm rooms promote drowsiness. Open a window or take a short break outside if your energy drops.'},
       {v:'steel',      icon:'📍', h:'Choose the Best Place and Time',b:'Find your personal peak focus time — some people think best in the morning, others in the evening. Studying in the same dedicated spot trains your brain to switch into learning mode there.'},
+      {v:'',           icon:'📦', h:'Easy Access to Materials',     b:'Organise books, stationery, and devices so you can reach them quickly without breaking focus. Searching for a pen or charger mid-session breaks concentration and wastes valuable momentum.'},
     ],
     'learnership': [
       {v:'', icon:'🚀', h:'Agile Learner',        borderColor:'#3a7a1e', headingColor:'#3a7a1e', b:'Actively seeks out challenge, deliberately builds good habits of mind, designs systems to learn from mistakes, tailors feedback to their goals, and is always growing, even outside of school.'},
@@ -1480,64 +1486,72 @@
   const LEVELS = ['','Non-Learner','Beginner Learner','Performance Learner','Directed Learner','Independent Learner','Agile Learner'];
 
   const METHODS = [
-    {id:'feynman',       label:'The Feynman Technique',        cat:'Ways to Learn'},
-    {id:'mind-map',      label:'Mind Mapping',                 cat:'Ways to Learn'},
-    {id:'flashcard',     label:'Flashcard Recall',             cat:'Ways to Learn'},
-    {id:'teach-someone', label:'Teach Someone Else',           cat:'Ways to Learn'},
-    {id:'music',         label:'Set It to Music',              cat:'Ways to Learn'},
-    {id:'story',         label:'The Story Method',             cat:'Ways to Learn'},
-    {id:'sketch-notes',  label:'Sketch Notes',                 cat:'Ways to Learn'},
-    {id:'q-storm',       label:'Question Storming',            cat:'Ways to Learn'},
-    {id:'draw-it',       label:'Draw It',                      cat:'Ways to Learn'},
-    {id:'one-min',       label:'One-Minute Summary',           cat:'Ways to Learn'},
-    {id:'analogies',     label:'Create Analogies',             cat:'Ways to Learn'},
-    {id:'gestures',      label:'Use Gestures and Movement',    cat:'Ways to Learn'},
-    {id:'dual-coding',   label:'Dual Coding',                  cat:'Ways to Study'},
-    {id:'brain-dump',    label:'Retrieval Brain Dump',         cat:'Ways to Learn'},
-    {id:'colour-code',   label:'Colour Coding',                cat:'Ways to Learn'},
-    {id:'mem-palace',    label:'Memory Palaces',               cat:'Ways to Learn'},
-    {id:'acronyms',      label:'Create Acronyms & Mnemonics',  cat:'Ways to Learn'},
-    {id:'comp-contrast', label:'Compare and Contrast Tables',  cat:'Ways to Learn'},
-    {id:'rank-justify',  label:'Rank and Justify',             cat:'Ways to Learn'},
-    {id:'predictions',   label:'Make Predictions',             cat:'Ways to Learn'},
-    {id:'remix',         label:'Remix the Learning',           cat:'Ways to Learn'},
-    {id:'become-concept',label:'Become the Concept',            cat:'Ways to Learn'},
-    {id:'pomodoro',      label:'Pomodoro Technique',           cat:'Ways to Study'},
-    {id:'interleaving',  label:'Interleaving',                 cat:'Ways to Study'},
-    {id:'spaced-rep',    label:'Spaced Repetition',            cat:'Ways to Study'},
-    {id:'prac-test',     label:'Practice Testing',             cat:'Ways to Study'},
-    {id:'elaboration',   label:'Elaboration',                  cat:'Ways to Study'},
-    {id:'walk-recall',   label:'Walk and Recall',              cat:'Physical & Movement'},
-    {id:'corners',       label:'Corners Challenge',            cat:'Physical & Movement'},
-    {id:'h-timeline',    label:'Human Timeline',               cat:'Physical & Movement'},
-    {id:'sticky-hunt',   label:'Sticky Note Hunt',             cat:'Physical & Movement'},
-    {id:'basketball',    label:'Basketball Revision',          cat:'Physical & Movement'},
-    {id:'throw-answer',  label:'Throw-and-Answer',             cat:'Physical & Movement'},
-    {id:'relay',         label:'Learning Relay',               cat:'Physical & Movement'},
-    {id:'gesture-code',  label:'Gesture Coding',               cat:'Physical & Movement'},
-    {id:'mem-walk',      label:'Memory Walk',                  cat:'Physical & Movement'},
-    {id:'comic-strip',   label:'Comic Strip Learning',         cat:'Creative & Visual'},
-    {id:'doodle-notes',  label:'Doodle Notes',                 cat:'Creative & Visual'},
-    {id:'build-model',   label:'Build a Model',                cat:'Creative & Visual'},
-    {id:'infographic',   label:'Create an Infographic',        cat:'Creative & Visual'},
-    {id:'colour-conn',   label:'Colour-Coded Connections',     cat:'Creative & Visual'},
-    {id:'quiz-show',     label:'Quiz Show',                    cat:'Social & Interactive'},
-    {id:'expert-panel',  label:'Expert Panel',                 cat:'Social & Interactive'},
-    {id:'speed-teach',   label:'Speed Teaching',               cat:'Social & Interactive'},
-    {id:'chalk',         label:'Write notes in chalk outside', cat:'Unusual Methods'},
-    {id:'treasure',      label:'Treasure hunt revision',       cat:'Unusual Methods'},
-    {id:'floor-map',     label:'Giant floor mind map',         cat:'Unusual Methods'},
-    {id:'podcast',       label:'Record a podcast',             cat:'Unusual Methods'},
-    {id:'whiteboard',    label:'Study at a whiteboard',        cat:'Unusual Methods'},
-    {id:'top-ten',       label:'"Top 10 Things" lists',        cat:'Unusual Methods'},
-    {id:'card-flash',    label:'Playing card flashcards',      cat:'Unusual Methods'},
-    {id:'board-game',    label:'Board game revision',          cat:'Unusual Methods'},
-    {id:'act-out',       label:'Act out processes or events',  cat:'Unusual Methods'},
-    {id:'memes',         label:'Create memes',                 cat:'Unusual Methods'},
+    {id:'feynman',       label:'The Feynman Technique',        cat:'Ways to Learn',        desc:'Explain the topic out loud as if teaching a 10-year-old. The moment you get stuck is exactly what you need to go back and learn.'},
+    {id:'mind-map',      label:'Mind Mapping',                 cat:'Ways to Learn',        desc:'Draw your topic in the centre, then branch out with connected ideas. Great for seeing how concepts link together at a glance.'},
+    {id:'flashcard',     label:'Flashcard Recall',             cat:'Ways to Learn',        desc:'Write a question on one side, the answer on the other, then test yourself. Trying to recall an answer builds far stronger memory than rereading.'},
+    {id:'teach-someone', label:'Teach Someone Else',           cat:'Ways to Learn',        desc:'Explain the topic to a friend or family member. The moment you can\'t explain something clearly reveals exactly what you don\'t yet understand.'},
+    {id:'music',         label:'Set It to Music',              cat:'Ways to Learn',        desc:'Turn facts, formulas, or sequences into a song or rap. Music makes information stick — especially if it feels a bit embarrassing to sing.'},
+    {id:'story',         label:'The Story Method',             cat:'Ways to Learn',        desc:'Turn dry facts into a story with characters and drama. Your brain is wired to remember stories far better than lists of information.'},
+    {id:'sketch-notes',  label:'Sketch Notes',                 cat:'Ways to Learn',        desc:'Replace written notes with drawings, doodles, and arrows. You don\'t need to be artistic — stick figures work perfectly.'},
+    {id:'q-storm',       label:'Question Storming',            cat:'Ways to Learn',        desc:'Instead of taking notes, write down every question the content raises, then find the answers. Questions drive deeper thinking than passive reading.'},
+    {id:'draw-it',       label:'Draw It',                      cat:'Ways to Learn',        desc:'Sketch a concept as a diagram or comic strip. Drawing forces your brain to decide what something actually looks like, which deepens understanding.'},
+    {id:'one-min',       label:'One-Minute Summary',           cat:'Ways to Learn',        desc:'After a lesson, set a timer for one minute and write everything you remember. Time pressure forces you to prioritise what actually matters.'},
+    {id:'analogies',     label:'Create Analogies',             cat:'Ways to Learn',        desc:'Connect new learning to something you already know. Finishing "This works like..." helps your brain anchor new information to existing knowledge.'},
+    {id:'gestures',      label:'Use Gestures and Movement',    cat:'Ways to Learn',        desc:'Associate physical movements or hand gestures with key ideas. Your body can remember things your mind forgets.'},
+    {id:'brain-dump',    label:'Retrieval Brain Dump',         cat:'Ways to Learn',        desc:'Write down everything you can remember about a topic without looking at any notes, then check what you missed. One of the most powerful memory techniques there is.'},
+    {id:'colour-code',   label:'Colour Coding',                cat:'Ways to Learn',        desc:'Assign colours to categories, themes, or relationships in your notes. The visual pattern helps your brain organise and retrieve information faster.'},
+    {id:'mem-palace',    label:'Memory Palaces',               cat:'Ways to Learn',        desc:'Mentally place pieces of information in specific spots around a familiar place — your home, your school route. Walk through it in your mind to retrieve them.'},
+    {id:'acronyms',      label:'Create Acronyms & Mnemonics',  cat:'Ways to Learn',        desc:'Turn the first letters of a list into a word, or invent a silly sentence. The stranger and more personal the shortcut, the better it sticks.'},
+    {id:'comp-contrast', label:'Compare and Contrast Tables',  cat:'Ways to Learn',        desc:'Draw a table to identify similarities and differences between ideas. Comparing things side by side builds deeper understanding than studying each one alone.'},
+    {id:'rank-justify',  label:'Rank and Justify',             cat:'Ways to Learn',        desc:'Order concepts by importance or impact, then explain your ranking out loud. The thinking behind your reasoning is the actual learning.'},
+    {id:'predictions',   label:'Make Predictions',             cat:'Ways to Learn',        desc:'Before you find out the answer, predict what you think it will be. Being wrong is especially effective at locking in the correct information.'},
+    {id:'remix',         label:'Remix the Learning',           cat:'Ways to Learn',        desc:'Transform your notes into a completely different format — comic strip, rap, storyboard, or infographic. Changing format forces your brain to process information at a deeper level.'},
+    {id:'become-concept',label:'Become the Concept',           cat:'Ways to Learn',        desc:'Role-play being the thing you\'re studying — a volcano, an electron, a historical figure. Stepping into the concept forces you to understand it from the inside out.'},
+    {id:'dual-coding',   label:'Dual Coding',                  cat:'Ways to Study',        desc:'Combine written notes with diagrams, symbols, or flowcharts. Two formats means two pathways for your brain to retrieve the same information.'},
+    {id:'pomodoro',      label:'Pomodoro Technique',           cat:'Ways to Study',        desc:'Study for 25 minutes with full focus, then take a 5-minute break. Short focused bursts beat long unfocused sessions every time.'},
+    {id:'interleaving',  label:'Interleaving',                 cat:'Ways to Study',        desc:'Mix different subjects or topics in the same study session instead of one long block. Feels harder, but builds stronger and more flexible memory.'},
+    {id:'spaced-rep',    label:'Spaced Repetition',            cat:'Ways to Study',        desc:'Review material at increasing intervals — day 1, day 3, day 7, day 14. Revisiting just before you forget is the single most efficient study method proven by research.'},
+    {id:'prac-test',     label:'Practice Testing',             cat:'Ways to Study',        desc:'Test yourself with past papers or self-made quizzes. Retrieving information from memory is far more effective than reading it again.'},
+    {id:'elaboration',   label:'Elaboration',                  cat:'Ways to Study',        desc:'Go beyond memorising by asking why something is true and how it connects to what you already know. Explaining the reasoning locks information in far more securely.'},
+    {id:'walk-recall',   label:'Walk and Recall',              cat:'Physical & Movement',  desc:'Walk while reciting facts or concepts from memory. Movement and recall together create stronger memory traces than sitting still at a desk.'},
+    {id:'corners',       label:'Corners Challenge',            cat:'Physical & Movement',  desc:'Label the corners of a room with answers and physically move to the correct one when a question is asked. Gets your body involved in the retrieval process.'},
+    {id:'h-timeline',    label:'Human Timeline',               cat:'Physical & Movement',  desc:'Create a physical timeline across a space using people or objects to represent events in sequence. Makes abstract order concrete and memorable.'},
+    {id:'sticky-hunt',   label:'Sticky Note Hunt',             cat:'Physical & Movement',  desc:'Stick questions around a room or house, then hunt for them and answer each one when you find it. Combines movement with active recall.'},
+    {id:'basketball',    label:'Basketball Revision',          cat:'Physical & Movement',  desc:'Answer a question correctly to earn a shot at a bin or basket. Gets retrieval and movement happening at the same time in a fun format.'},
+    {id:'throw-answer',  label:'Throw-and-Answer',             cat:'Physical & Movement',  desc:'Toss a ball to someone who must answer a question before throwing it back. The physical activity keeps energy and attention up during revision.'},
+    {id:'relay',         label:'Learning Relay',               cat:'Physical & Movement',  desc:'Teams race to complete a set of questions or tasks, passing on to the next person after each correct answer. Combines competition, movement, and retrieval.'},
+    {id:'gesture-code',  label:'Gesture Coding',               cat:'Physical & Movement',  desc:'Assign a specific physical gesture to each key concept, then practise recalling them using only the gestures. The body remembers what the mind sometimes forgets.'},
+    {id:'mem-walk',      label:'Memory Walk',                  cat:'Physical & Movement',  desc:'Walk a familiar route and mentally attach facts to specific landmarks along the way. Later, walk the route again in your mind to retrieve each fact.'},
+    {id:'comic-strip',   label:'Comic Strip Learning',         cat:'Creative & Visual',    desc:'Turn a process or event into a comic strip with panels, characters, and captions. Visual storytelling forces you to sequence and simplify complex ideas.'},
+    {id:'doodle-notes',  label:'Doodle Notes',                 cat:'Creative & Visual',    desc:'Add small drawings and illustrations alongside written notes as you study. The act of sketching reinforces what you\'re reading or hearing.'},
+    {id:'build-model',   label:'Build a Model',                cat:'Creative & Visual',    desc:'Use whatever materials you have — clay, paper, blocks, everyday objects — to build a physical model of the concept you\'re studying.'},
+    {id:'infographic',   label:'Create an Infographic',        cat:'Creative & Visual',    desc:'Summarise a topic as a visual poster combining headings, facts, arrows, and images. Great for revision and for seeing the big picture at a glance.'},
+    {id:'colour-conn',   label:'Colour-Coded Connections',     cat:'Creative & Visual',    desc:'Use colours to show connections and links between ideas across different pages or sections of your notes. Makes hidden relationships visible.'},
+    {id:'quiz-show',     label:'Quiz Show',                    cat:'Social & Interactive', desc:'Turn revision into a game-show format with points, rounds, and categories. Competition releases dopamine and makes retrieval feel rewarding rather than painful.'},
+    {id:'expert-panel',  label:'Expert Panel',                 cat:'Social & Interactive', desc:'Each person becomes an expert on one area and answers questions from the group. Knowing you\'ll be questioned by peers is one of the strongest motivators for deep preparation.'},
+    {id:'speed-teach',   label:'Speed Teaching',               cat:'Social & Interactive', desc:'Explain a concept to a partner in 60 seconds, then swap. The time limit forces you to decide what actually matters most — that decision is the learning.'},
+    {id:'chalk',         label:'Write notes in chalk outside', cat:'Unusual Methods',      desc:'Write notes or diagrams in chalk outside. A change of surface and environment activates different thinking and makes revision feel less like a chore.'},
+    {id:'treasure',      label:'Treasure hunt revision',       cat:'Unusual Methods',      desc:'Create a hunt where each clue requires solving a question to find the next location. Turns revision into active problem-solving with a physical reward.'},
+    {id:'floor-map',     label:'Giant floor mind map',         cat:'Unusual Methods',      desc:'Build a giant mind map on the floor using sheets of paper, sticky notes, and drawings. Working at a large scale changes how you organise and connect ideas.'},
+    {id:'podcast',       label:'Record a podcast',             cat:'Unusual Methods',      desc:'Record yourself explaining a topic as if hosting a podcast. Hearing yourself struggle to explain something clearly reveals exactly where your gaps are.'},
+    {id:'whiteboard',    label:'Study at a whiteboard',        cat:'Unusual Methods',      desc:'Study while standing at a whiteboard instead of sitting at a desk. Writing large and being able to erase and redo changes how you think through problems.'},
+    {id:'top-ten',       label:'"Top 10 Things" lists',        cat:'Unusual Methods',      desc:'Reduce a topic to the 10 most important things a student must know. Forces active prioritisation and decision-making rather than passive rereading.'},
+    {id:'card-flash',    label:'Playing card flashcards',      cat:'Unusual Methods',      desc:'Write questions on one side of playing cards and answers on the other. The familiar card format makes self-testing feel more like a game.'},
+    {id:'board-game',    label:'Board game revision',          cat:'Unusual Methods',      desc:'Turn revision content into the rules and questions of a board game you design and then play. Building the game requires as much learning as playing it.'},
+    {id:'act-out',       label:'Act out processes or events',  cat:'Unusual Methods',      desc:'Physically act out a scientific process or historical event with others. Embodied, dramatic learning creates vivid and lasting memories.'},
+    {id:'memes',         label:'Create memes',                 cat:'Unusual Methods',      desc:'Create memes that accurately explain a concept. Forces you to distil an idea to its clearest, most memorable core — then makes it funny enough to stick.'},
   ];
 
   function getMethodState(id) { return localStorage.getItem('method_'+id)||''; }
   function setMethodState(id,state) { localStorage.setItem('method_'+id,state); }
+
+  function toggleDesc(id) {
+    const desc = document.getElementById('desc-'+id);
+    const hint = document.querySelector('[data-method="'+id+'"] .method-hint');
+    if (!desc) return;
+    desc.classList.toggle('open');
+    if (hint) hint.classList.toggle('open');
+  }
 
   function toggleMethod(id,action) {
     const current = getMethodState(id);
@@ -1615,11 +1629,14 @@
         <div class="method-grid">
           ${items.map(m=>`
             <div class="method-card" data-method="${m.id}">
-              <span class="method-name">${m.label}</span>
-              <div class="method-btns">
-                <button class="btn-tick"  onclick="toggleMethod('${m.id}','tick')"  title="Worked for me">✓</button>
-                <button class="btn-cross" onclick="toggleMethod('${m.id}','cross')" title="Not for me">✗</button>
+              <div class="method-top">
+                <span class="method-name" onclick="toggleDesc('${m.id}')">${m.label} <span class="method-hint">▸</span></span>
+                <div class="method-btns">
+                  <button class="btn-tick"  onclick="toggleMethod('${m.id}','tick')"  title="Worked for me">✓</button>
+                  <button class="btn-cross" onclick="toggleMethod('${m.id}','cross')" title="Not for me">✗</button>
+                </div>
               </div>
+              <div class="method-desc" id="desc-${m.id}">${m.desc}</div>
             </div>`).join('')}
         </div>
       </div>`;
